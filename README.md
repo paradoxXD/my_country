@@ -22,4 +22,4 @@ Main page https://www.creative-tim.com/product/black-dashboard
 
 The demo https://demos.creative-tim.com/black-dashboard/examples/dashboard.html
 
-Have fun guys ::smile::
+Have fun guys :smile:
