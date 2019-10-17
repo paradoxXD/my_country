@@ -16,8 +16,10 @@ W3Schools https://www.w3schools.com/default.asp
 
 Templates(very useful) https://getbootstrap.com/
 
-### A templates that I see fit\
+### A templates that I see fit
 
 Main page https://www.creative-tim.com/product/black-dashboard
 
 The demo https://demos.creative-tim.com/black-dashboard/examples/dashboard.html
+
+Have fun guys ::smile::
