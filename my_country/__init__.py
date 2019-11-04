@@ -26,9 +26,25 @@ def create_app(test_config=None):
 
     # a simple page that says hello
     @app.route('/',methods=['GET', 'POST'])
+    @app.route('/portfolio')
     def hello():
-        return render_template('dashboard.html')
+        return render_template('portfolio.html')
+
+    @app.route('/icons')
+    def icons():
+        return render_template('icons.html')
+    
+    @app.route('/map')
+    def map():
+        return render_template('map.html')
+
+    @app.route('/notifications')
+    def notifications():
+        return render_template('notifications.html')
+
+    
+
+    
 
 
     return app
-
