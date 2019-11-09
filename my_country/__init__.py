@@ -6,6 +6,12 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegistrationForm, LoginForm
+from flask_bcrypt import Bcrypt
+from model import User
+
+
+import pymysql.cursors
+
 
 # from forms import RegistrationForm, LoginForm
 
@@ -16,6 +22,8 @@ def create_app(test_config=None):
         SECRET_KEY='11267e08ae4320abfe7252612fb97a48',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     )
+
+    bcrypt = Bcrypt(app)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -61,6 +69,26 @@ def create_app(test_config=None):
     def register():
         form = RegistrationForm()
         if form.validate_on_submit():
+    
+    
+    
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            create_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+            
+            connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+            
+            try:
+                with connection.cursor() as cursor:
+
+                    sql = create_user
+                    cursor.execute(sql)
+                
+                    connection.commit()
+            finally:
+                connection.close()
+
+
+
             flash(f'Account created for {form.username.data}!', 'success')
             return redirect(url_for('hello'))
         return render_template('register.html', title='Register', form=form)

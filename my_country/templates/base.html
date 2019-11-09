@@ -35,8 +35,26 @@
   <link href="{{ url_for('static', filename='assets/css/black-dashboard.css') }}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{ url_for('static', filename='assets/demo/demo.css') }}" rel="stylesheet" />
+  <script>
+    if(localStorage.getItem("test")!=null){
+      window.test=localStorage.getItem("test");
+    }else{
+      window.test=1;
+    }
+    //alert(test);
+     // 
+    // window.test=1;
+    //window.test=1;
+      localStorage.setItem("test",window.test);
+      //if(test!=1){
+      //  var div = document.getElementById('nav1');div.setAttribute('class','deactive');
+      //}
+  </script>
 </head>
-
+<script>
+  var div = document.getElementById('nav1');
+  div.setAttribute('class','deactive')
+</script>
 <body class="">
   <div class="wrapper">
     <div class="sidebar">
@@ -52,51 +70,100 @@
             MOCK TRADE 
           </a>
         </div>
-        <ul class="nav">
-          <li class="active ">
-            <a href="./portfolio">
+        
+        <ul class="nav" >
+          <li id="nav1", class="deactive" >
+              <script>
+                  
+                  if(window.test==1){
+                    var div = document.getElementById('nav1');div.setAttribute('class','active');
+                  }
+                  </script>  
+            <a href="./portfolio" onclick="window.test=1;localStorage.setItem('test',window.test);">
               <i class="tim-icons icon-chart-pie-36"></i>
               <p>PORTFOLIO</p>
             </a>
           </li>
-          <li>
-            <a href="./icons">
+          <li id='nav2' ,class="deactive">
+              <script>
+                  
+                  if(window.test==2){
+                    var div = document.getElementById('nav2');div.setAttribute('class','active');
+                  }
+                  </script>
+            <a href="./icons" onclick="window.test=2;localStorage.setItem('test',window.test);">
               <i class="tim-icons icon-atom"></i>
               <p>Icons</p>
             </a>
           </li>
-          <li>
-            <a href="./notifications">
+          <li id='nav3' ,class="deactive">
+              <script>
+                  
+                  if(window.test==3){
+                    var div = document.getElementById('nav3');div.setAttribute('class','active');
+                  }
+                  </script>
+            <a href="./notifications" onclick="window.test=3;localStorage.setItem('test',window.test);">
               <i class="tim-icons icon-bell-55"></i>
               <p>Notifications</p>
             </a>
           </li>
-          <li>
-            <a href="./user">
+          <li id='nav4' ,class="deactive">
+              <script>
+                  
+                  if(window.test==4){
+                    var div = document.getElementById('nav4');div.setAttribute('class','active');
+                  }
+                  </script>
+            <a href="./user" onclick="window.test=4;localStorage.setItem('test',window.test);">
               <i class="tim-icons icon-single-02"></i>
               <p>User Profile</p>
             </a>
           </li>
-          <li>
-            <a href="./tables">
+          <li id='nav5' ,class="deactive">
+              <script>
+                  
+                  if(window.test==5){
+                    var div = document.getElementById('nav5');div.setAttribute('class','active');
+                  }
+                  </script>
+            <a href="./tables" onclick="window.test=5;localStorage.setItem('test',window.test);">
               <i class="tim-icons icon-puzzle-10"></i>
               <p>Table List</p>
             </a>
           </li>
-          <li>
-            <a href="./typography">
+          <li id='nav6' ,class="deactive">
+              <script>
+                  
+                  if(window.test==6){
+                    var div = document.getElementById('nav6');div.setAttribute('class','active');
+                  }
+                  </script>
+            <a href="./typography" onclick="window.test=6;localStorage.setItem('test',window.test);">
               <i class="tim-icons icon-align-center"></i>
               <p>Typography</p>
             </a>
           </li>
-          <li>
-            <a href="./register">
+          <li id='nav7' ,class="deactive">
+              <script>
+                  
+                  if(window.test==7){
+                    var div = document.getElementById('nav7');div.setAttribute('class','active');
+                  }
+                  </script>
+            <a href="./register" onclick="window.test=7;localStorage.setItem('test',window.test);">
               <i class="tim-icons icon-laptop"></i>
               <p>Register</p>
             </a>
           </li>
-          <li>
-            <a href="./login">
+          <li id='nav8' ,class="deactive">
+              <script>
+                  
+                  if(window.test==8){
+                    var div = document.getElementById('nav8');div.setAttribute('class','active');
+                  }
+                  </script>
+            <a href="./login" onclick="window.test=8;localStorage.setItem('test',window.test);">
               <i class="tim-icons icon-badge"></i>
               <p>Login</p>
             </a>
