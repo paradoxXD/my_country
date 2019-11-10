@@ -120,7 +120,7 @@ def create_app(test_config=None):
             if bcrypt.check_password_hash(result[0], form.password.data) is True:
                 flash('You have been logged in!', 'success')
                 session['user'] = form.email.data
-                return render_template('portfolio.html', title='portfolio', form=form)
+                return redirect(url_for('hello'))
             else:
                 flash('Login Unsuccessful. Please check username and password', 'danger')
         return render_template('login.html', title='Login', form=form)
