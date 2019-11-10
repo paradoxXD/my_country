@@ -6,7 +6,19 @@ try:
 
     with connection.cursor() as cursor:
         # Read a single record
-        sql = "SELECT * FROM tasks"
+        sql = "SELECT * FROM users"
+        cursor.execute(sql)
+        result = cursor.fetchone()
+        print(result)
+finally:
+    connection.close()
+
+
+try:
+
+    with connection.cursor() as cursor:
+        # Read a single record
+        sql = "SELECT user_id FROM users"
         cursor.execute(sql)
         result = cursor.fetchone()
         print(result)

@@ -35,6 +35,8 @@
   <link href="{{ url_for('static', filename='assets/css/black-dashboard.css') }}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{ url_for('static', filename='assets/demo/demo.css') }}" rel="stylesheet" />
+  
+  
   <script>
     if(localStorage.getItem("test")!=null){
       window.test=localStorage.getItem("test");
@@ -50,6 +52,8 @@
       //  var div = document.getElementById('nav1');div.setAttribute('class','deactive');
       //}
   </script>
+
+  
 </head>
 <script>
   var div = document.getElementById('nav1');
@@ -183,7 +187,14 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">Mock Trade Plotform</a>
+            {% if user_email %}
+              <a class="navbar-brand" href="javascript:void(0)">
+                Mock Trade Plotform - {{ user_email }}</a>
+            {% else %}
+            <a class="navbar-brand" href="javascript:void(0)">
+                Mock Trade Plotform</a>
+            {% endif %}
+
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
