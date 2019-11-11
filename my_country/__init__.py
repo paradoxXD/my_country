@@ -96,7 +96,7 @@ def create_app(test_config=None):
 
 
 
-            flash(f'Account created for {form.username.data}!', 'success')
+            flash('Account created for {}!'.format(form.username.data), 'success')
             return redirect(url_for('login'))
         return render_template('register.html', title='Register', form=form)
 
@@ -128,3 +128,9 @@ def create_app(test_config=None):
 
 
     return app
+
+
+if __name__ == "__main__":
+    
+    app = create_app()
+    app.run(debug=True)

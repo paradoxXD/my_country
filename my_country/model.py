@@ -6,7 +6,7 @@
 
 
 def User(username, email, password):
-    return f"INSERT INTO users(username,email,user_password)VALUES('{username}','{email}','{password}');"
+    return "INSERT INTO users(username,email,user_password)VALUES('{}','{}','{}');".format(username,email,password)
 
 def Get_password(email):
-    return f"SELECT user_password FROM users WHERE email='{email}';"
+    return "SELECT user_password FROM users WHERE email='{}';".format(email)
