@@ -1,6 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="content">
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-info alert-with-icon" data-notify="container">
+                    <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                    <span data-notify="icon" class="tim-icons icon-bell-55"></span>
+                    <span data-notify="message">{{  message  }}</span>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+        </div>
+        
         <div class="card">
             <div class="card-body">
                 <form method="POST" action="">

@@ -7,7 +7,7 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask import Flask, render_template, url_for, flash, redirect, session, g
 from forms import RegistrationForm, LoginForm
 from flask_bcrypt import Bcrypt
-from model import User, Get_password
+from model import User, Get_password, already_exist
 
 
 
@@ -43,7 +43,7 @@ def create_app(test_config=None):
     @app.route('/',methods=['GET', 'POST'])
     @app.route('/portfolio')
     def hello():
-        return render_template('portfolio.html',title="portfolio", user_email=session.get("user"))
+        return render_template('portfolio.html',title="portfolio", user_email=session.get("user"), enable=1)
 
     @app.before_request
     def before_request():
@@ -53,77 +53,63 @@ def create_app(test_config=None):
 
     @app.route('/icons')
     def icons():
-        return render_template('icons.html', title="icons", user_email=session.get("user"))
+        return render_template('icons.html', title="icons", user_email=session.get("user"), enable=2)
 
     @app.route('/notifications')
     def notifications():
-        return render_template('notifications.html', user_email=session.get("user"))
+        return render_template('notifications.html', user_email=session.get("user"), enable=3)
 
     @app.route('/user')
     def user():
-        return render_template('user.html', title='users', user_email=session.get("user"))
+        return render_template('user.html', title='users', user_email=session.get("user"), enable=4)
 
     @app.route('/tables')
     def tables():
-        return render_template('tables.html', user_email=session.get("user"))
+        return render_template('tables.html', user_email=session.get("user"), enable=5)
 
     @app.route('/typography')
     def typography():
-        return render_template('typography.html', user_email=session.get("user"))
+        return render_template('typography.html', user_email=session.get("user"), enable=6)
         
 
     @app.route('/register', methods=['GET','POST'])
     def register():
         form = RegistrationForm()
         if form.validate_on_submit():
-    
+            
+            if already_exist(username=form.username.data, email=form.email.data):
+                flash('The email or username has been used. Please check username and password', 'danger')
+                return render_template('register.html', user_email=session.get("user"), title='register', form=form, enable=7)
+
+            
             # cannot validate whether the email is in the database or not
     
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            create_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
             
-            connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+            # create user
+            User(username=form.username.data, email=form.email.data, password=hashed_password)
             
-            try:
-                with connection.cursor() as cursor:
-
-                    sql = create_user
-                    cursor.execute(sql)
-                
-                    connection.commit()
-            finally:
-                connection.close()
-
-
-
             flash('Account created for {}!'.format(form.username.data), 'success')
             return redirect(url_for('login'))
-        return render_template('register.html', title='Register', form=form)
+        return render_template('register.html', user_email=session.get("user"), title='Register', form=form, enable=7)
 
     @app.route('/login', methods=['GET','POST'])
     def login():
         form = LoginForm()
         if form.validate_on_submit():
             
-            connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+
             getPass = Get_password(form.email.data)
-            try:
-                with connection.cursor() as cursor:
-
-                    sql = getPass
-                    cursor.execute(sql)
-                    result = cursor.fetchone()
-            finally:
-                connection.close()
+            
 
 
-            if bcrypt.check_password_hash(result[0], form.password.data) is True:
+            if bcrypt.check_password_hash(getPass, form.password.data) is True:
                 flash('You have been logged in!', 'success')
                 session['user'] = form.email.data
                 return redirect(url_for('hello'))
             else:
                 flash('Login Unsuccessful. Please check username and password', 'danger')
-        return render_template('login.html', title='Login', form=form)
+        return render_template('login.html', user_email=session.get("user"), title='Login', form=form, enable=8)
 
 
 

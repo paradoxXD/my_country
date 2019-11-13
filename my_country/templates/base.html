@@ -38,16 +38,16 @@
   
   
   <script>
-    if(localStorage.getItem("test")!=null){
-      window.test=localStorage.getItem("test");
-    }else{
-      window.test=1;
-    }
-    //alert(test);
+    //if(localStorage.getItem("test")!=null){
+      //enable=localStorage.getItem("test");
+    //}else{
+      //enable=1;
+    //}
+    //alert({{ enable }});
      // 
-    // window.test=1;
-    //window.test=1;
-      localStorage.setItem("test",window.test);
+    // enable=1;
+    //enable=1;
+      //localStorage.setItem("test",window.test);
       //if(test!=1){
       //  var div = document.getElementById('nav1');div.setAttribute('class','deactive');
       //}
@@ -78,12 +78,12 @@
         <ul class="nav" >
           <li id="nav1", class="deactive" >
               <script>
-                  
-                  if(window.test==1){
+                  var enable = {{ enable }}
+                  if(enable==1){
                     var div = document.getElementById('nav1');div.setAttribute('class','active');
                   }
                   </script>  
-            <a href="./portfolio" onclick="window.test=1;localStorage.setItem('test',window.test);">
+            <a href="./portfolio">
               <i class="tim-icons icon-chart-pie-36"></i>
               <p>PORTFOLIO</p>
             </a>
@@ -91,11 +91,11 @@
           <li id='nav2' ,class="deactive">
               <script>
                   
-                  if(window.test==2){
+                  if(enable==2){
                     var div = document.getElementById('nav2');div.setAttribute('class','active');
                   }
                   </script>
-            <a href="./icons" onclick="window.test=2;localStorage.setItem('test',window.test);">
+            <a href="./icons">
               <i class="tim-icons icon-atom"></i>
               <p>Icons</p>
             </a>
@@ -103,11 +103,11 @@
           <li id='nav3' ,class="deactive">
               <script>
                   
-                  if(window.test==3){
+                  if(enable==3){
                     var div = document.getElementById('nav3');div.setAttribute('class','active');
                   }
                   </script>
-            <a href="./notifications" onclick="window.test=3;localStorage.setItem('test',window.test);">
+            <a href="./notifications">
               <i class="tim-icons icon-bell-55"></i>
               <p>Notifications</p>
             </a>
@@ -115,11 +115,11 @@
           <li id='nav4' ,class="deactive">
               <script>
                   
-                  if(window.test==4){
+                  if(enable==4){
                     var div = document.getElementById('nav4');div.setAttribute('class','active');
                   }
                   </script>
-            <a href="./user" onclick="window.test=4;localStorage.setItem('test',window.test);">
+            <a href="./user">
               <i class="tim-icons icon-single-02"></i>
               <p>User Profile</p>
             </a>
@@ -127,11 +127,11 @@
           <li id='nav5' ,class="deactive">
               <script>
                   
-                  if(window.test==5){
+                  if(enable==5){
                     var div = document.getElementById('nav5');div.setAttribute('class','active');
                   }
                   </script>
-            <a href="./tables" onclick="window.test=5;localStorage.setItem('test',window.test);">
+            <a href="./tables">
               <i class="tim-icons icon-puzzle-10"></i>
               <p>Table List</p>
             </a>
@@ -139,11 +139,11 @@
           <li id='nav6' ,class="deactive">
               <script>
                   
-                  if(window.test==6){
+                  if(enable==6){
                     var div = document.getElementById('nav6');div.setAttribute('class','active');
                   }
                   </script>
-            <a href="./typography" onclick="window.test=6;localStorage.setItem('test',window.test);">
+            <a href="./typography">
               <i class="tim-icons icon-align-center"></i>
               <p>Typography</p>
             </a>
@@ -151,11 +151,11 @@
           <li id='nav7' ,class="deactive">
               <script>
                   
-                  if(window.test==7){
+                  if(enable==7){
                     var div = document.getElementById('nav7');div.setAttribute('class','active');
                   }
                   </script>
-            <a href="./register" onclick="window.test=7;localStorage.setItem('test',window.test);">
+            <a href="./register">
               <i class="tim-icons icon-laptop"></i>
               <p>Register</p>
             </a>
@@ -163,11 +163,11 @@
           <li id='nav8' ,class="deactive">
               <script>
                   
-                  if(window.test==8){
+                  if(enable==8){
                     var div = document.getElementById('nav8');div.setAttribute('class','active');
                   }
                   </script>
-            <a href="./login" onclick="window.test=8;localStorage.setItem('test',window.test);">
+            <a href="./login">
               <i class="tim-icons icon-badge"></i>
               <p>Login</p>
             </a>
