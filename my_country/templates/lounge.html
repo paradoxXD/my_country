@@ -1,0 +1,419 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content">
+  <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-info alert-with-icon" data-notify="container">
+              <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="tim-icons icon-simple-remove"></i>
+              </button>
+              <span data-notify="icon" class="tim-icons icon-bell-55"></span>
+              <span data-notify="message">{{  message  }}</span>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+  </div>
+  <div class="row"> 
+    <div class="col-12">	
+        <div class="card">
+            <div class="card-body">
+                <h4 class="title">Search For Stock Name</h4>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <form>
+                            <input type="text" class="form-control" placeholder="Stockname">
+                        </form>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-fill btn-primary" align="center">Go</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+      <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Stock Recommendation</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table tablesorter " id="">
+                <thead class=" text-primary">
+                  <tr>
+                    <th>
+                      Stock Name
+                    </th>
+                    <th>
+                      Stock Code
+                    </th>
+                    <th>
+                      Change
+                    </th>
+                    <th>
+                      Price
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      HON
+                    </td>
+                    <td>
+                      10145
+                    </td>
+                    <td>
+                      -3.54%
+                    </td>
+                    <td>
+                      $11.25
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      FISV
+                    </td>
+                    <td>
+                      10696
+                    </td>
+                    <td>
+                      -6.67%
+                    </td>
+                    <td>
+                      $59.00
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card card-chart" >
+        <div class="card-header ">
+          <div class="row">
+            <div class="col-sm-6 text-left">
+              <h5 class="card-category">Total Shipments</h5>
+              <h2 class="card-title">Performance</h2>
+            </div>
+            <div class="col-sm-6">
+              <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                <label class="btn btn-sm btn-primary btn-simple active" id="0">
+                  <input type="radio" name="options" checked>
+                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Week</span>
+                  <span class="d-block d-sm-none">
+                    <i class="tim-icons icon-single-02"></i>
+                  </span>
+                </label>
+                <label class="btn btn-sm btn-primary btn-simple" id="1">
+                  <input type="radio" class="d-none d-sm-none" name="options">
+                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Month</span>
+                  <span class="d-block d-sm-none">
+                    <i class="tim-icons icon-gift-2"></i>
+                  </span>
+                </label>
+                <label class="btn btn-sm btn-primary btn-simple" id="2">
+                  <input type="radio" class="d-none" name="options">
+                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Year</span>
+                  <span class="d-block d-sm-none">
+                    <i class="tim-icons icon-tap-02"></i>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-area">
+            <canvas id="chartBig1"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>    
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"> All stocks </h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table tablesorter " id="">
+              <thead class=" text-primary">
+                <tr>
+                  <th>
+                    No.
+                  </th>
+                  <th>
+                    Stock Name
+                  </th>
+                  <th>
+                    Stock Code
+                  </th>
+                  <th>
+                    Shares
+                  </th>
+                  <th>
+                    Unit Price
+                  </th>
+                  <th>
+                    Total Price
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    1
+                  </td>
+                  <td>
+                    ORCL
+                  </td>
+                  <td>
+                    10104
+                  </td>
+                  <td>
+                    300
+                  </td>
+                  <td>
+                    $100
+                  </td>
+                  <td>
+                    $3000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    2
+                  </td>
+                  <td>
+                    MSFT
+                  </td>
+                  <td>
+                    10107
+                  </td>
+                  <td>
+                    400
+                  </td>
+                  <td>
+                    $50
+                  </td>
+                  <td>
+                    $20000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    3
+                  </td>
+                  <td>
+                    ORCL
+                  </td>
+                  <td>
+                    10104
+                  </td>
+                  <td>
+                    300
+                  </td>
+                  <td>
+                    $100
+                  </td>
+                  <td>
+                    $3000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    4
+                  </td>
+                  <td>
+                    MSFT
+                  </td>
+                  <td>
+                    10107
+                  </td>
+                  <td>
+                    400
+                  </td>
+                  <td>
+                    $50
+                  </td>
+                  <td>
+                    $20000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    5
+                  </td>
+                  <td>
+                    ORCL
+                  </td>
+                  <td>
+                    10104
+                  </td>
+                  <td>
+                    300
+                  </td>
+                  <td>
+                    $100
+                  </td>
+                  <td>
+                    $3000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    6
+                  </td>
+                  <td>
+                    MSFT
+                  </td>
+                  <td>
+                    10107
+                  </td>
+                  <td>
+                    400
+                  </td>
+                  <td>
+                    $50
+                  </td>
+                  <td>
+                    $20000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    7
+                  </td>
+                  <td>
+                    ORCL
+                  </td>
+                  <td>
+                    10104
+                  </td>
+                  <td>
+                    300
+                  </td>
+                  <td>
+                    $100
+                  </td>
+                  <td>
+                    $3000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    8
+                  </td>
+                  <td>
+                    MSFT
+                  </td>
+                  <td>
+                    10107
+                  </td>
+                  <td>
+                    400
+                  </td>
+                  <td>
+                    $50
+                  </td>
+                  <td>
+                    $20000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    9
+                  </td>
+                  <td>
+                    ORCL
+                  </td>
+                  <td>
+                    10104
+                  </td>
+                  <td>
+                    300
+                  </td>
+                  <td>
+                    $100
+                  </td>
+                  <td>
+                    $3000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    10
+                  </td>
+                  <td>
+                    MSFT
+                  </td>
+                  <td>
+                    10107
+                  </td>
+                  <td>
+                    400
+                  </td>
+                  <td>
+                    $50
+                  </td>
+                  <td>
+                    $20000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    11
+                  </td>
+                  <td>
+                    ORCL
+                  </td>
+                  <td>
+                    10104
+                  </td>
+                  <td>
+                    300
+                  </td>
+                  <td>
+                    $100
+                  </td>
+                  <td>
+                    $3000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    12
+                  </td>
+                  <td>
+                    MSFT
+                  </td>
+                  <td>
+                    10107
+                  </td>
+                  <td>
+                    400
+                  </td>
+                  <td>
+                    $50
+                  </td>
+                  <td>
+                    $20000
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

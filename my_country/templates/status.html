@@ -1,0 +1,107 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-header">
+          <h3 class="card-title">My Status</h3>
+        </div>
+        <div class="card-body">
+          <div class="typography-line">
+            <span style="font-weight:bold;">My Rank</span>
+            <h3>5</h3>
+          </div>
+          <div class="typography-line">
+              <span style="font-weight:bold;">My Property</span>
+              <h3>$50000</h3>
+          </div>
+          <div class="typography-line">
+              <span style="font-weight:bold;">Yield Rate</span>
+              <h3>5.40%</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-header">
+          <h3 class="card-title"> My Portfolio List</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table tablesorter " id="">
+              <thead class=" text-primary">
+                <tr>
+                  <th>
+                    No.
+                  </th>
+                  <th>
+                    Stock Name
+                  </th>
+                  <th>
+                    Stock Code
+                  </th>
+                  <th>
+                    Shares
+                  </th>
+                  <th>
+                    Unit Price
+                  </th>
+                  <th>
+                    Total Price
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    1
+                  </td>
+                  <td>
+                    ORCL
+                  </td>
+                  <td>
+                    10104
+                  </td>
+                  <td>
+                    300
+                  </td>
+                  <td>
+                    $100
+                  </td>
+                  <td>
+                    $3000
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    2
+                  </td>
+                  <td>
+                    MSFT
+                  </td>
+                  <td>
+                    10107
+                  </td>
+                  <td>
+                    400
+                  </td>
+                  <td>
+                    $50
+                  </td>
+                  <td>
+                    $20000
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

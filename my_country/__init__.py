@@ -51,13 +51,13 @@ def create_app(test_config=None):
         if 'user' in session:
             g.user = session['user']
 
-    @app.route('/icons')
-    def icons():
-        return render_template('icons.html', title="icons", user_email=session.get("user"), enable=2)
+    @app.route('/lounge')
+    def lounge():
+        return render_template('lounge.html', title="lounge", user_email=session.get("user"), enable=2)
 
-    @app.route('/notifications')
+    @app.route('/status')
     def notifications():
-        return render_template('notifications.html', user_email=session.get("user"), enable=3)
+        return render_template('status.html', title="status",user_email=session.get("user"), enable=3)
 
     @app.route('/user')
     def user():
