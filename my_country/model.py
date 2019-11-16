@@ -30,7 +30,10 @@ def Get_password(email):
             result = cursor.fetchone()
     finally:
             connection.close()
-    return result[0]
+    if result == None:
+        return None
+    else:
+        return result[0]
 
 
 def already_exist(username, email):

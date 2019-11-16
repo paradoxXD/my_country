@@ -4,7 +4,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-from flask import Flask, render_template, url_for, flash, redirect, session, g
+from flask import Flask, render_template, url_for, flash, redirect, session, g, request
 from forms import RegistrationForm, LoginForm
 from flask_bcrypt import Bcrypt
 from model import User, Get_password, already_exist
@@ -41,9 +41,12 @@ def create_app(test_config=None):
 
     # a simple page that says hello
     @app.route('/',methods=['GET', 'POST'])
-    @app.route('/portfolio')
+    @app.route('/portfolio',methods=['GET', 'POST'])
     def hello():
+        
         return render_template('portfolio.html',title="portfolio", user_email=session.get("user"), enable=1)
+        
+
 
     @app.before_request
     def before_request():
@@ -51,7 +54,7 @@ def create_app(test_config=None):
         if 'user' in session:
             g.user = session['user']
 
-    @app.route('/lounge')
+    @app.route('/lounge',methods=['GET', 'POST'])
     def lounge():
         return render_template('lounge.html', title="lounge", user_email=session.get("user"), enable=2)
 
@@ -98,10 +101,11 @@ def create_app(test_config=None):
         form = LoginForm()
         if form.validate_on_submit():
             
-
             getPass = Get_password(form.email.data)
-            
 
+            if getPass == None:
+                flash('Login Unsuccessful. Please check username and password', 'danger')
+                return redirect(url_for('login'))
 
             if bcrypt.check_password_hash(getPass, form.password.data) is True:
                 flash('You have been logged in!', 'success')
@@ -110,6 +114,12 @@ def create_app(test_config=None):
             else:
                 flash('Login Unsuccessful. Please check username and password', 'danger')
         return render_template('login.html', user_email=session.get("user"), title='Login', form=form, enable=8)
+
+    @app.route('/drop')
+    def drop():
+        session.pop("user",None)
+        return redirect(url_for('hello'))
+
 
 
 

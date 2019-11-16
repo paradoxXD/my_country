@@ -37,28 +37,23 @@
   <link href="{{ url_for('static', filename='assets/demo/demo.css') }}" rel="stylesheet" />
   
   
-  <script>
-    //if(localStorage.getItem("test")!=null){
-      //enable=localStorage.getItem("test");
-    //}else{
-      //enable=1;
-    //}
-    //alert({{ enable }});
-     // 
-    // enable=1;
-    //enable=1;
-      //localStorage.setItem("test",window.test);
-      //if(test!=1){
-      //  var div = document.getElementById('nav1');div.setAttribute('class','deactive');
-      //}
-  </script>
-
   
 </head>
 <script>
   var div = document.getElementById('nav1');
   div.setAttribute('class','deactive')
 </script>
+
+<script>
+
+let sendData=new URLSearchParams();
+
+sendData.append("stock","AAPL");
+
+const req = new Request('127.0.0.1:5000?'+sendData).;
+
+</script>
+
 
 <body class="">
   <div class="wrapper">
@@ -79,11 +74,15 @@
         <ul class="nav" >
           <li id="nav1", class="deactive" >
               <script>
-                  var enable = {{ enable }}
+                  var enable = {{ enable }};
+                  //alert(enable);
                   if(enable==1){
                     var div = document.getElementById('nav1');div.setAttribute('class','active');
                   }
-                  </script>  
+            
+            
+                </script>  
+              
             <a href="./portfolio">
               <i class="tim-icons icon-chart-pie-36"></i>
               <p>PORTFOLIO</p>
@@ -156,6 +155,7 @@
                     var div = document.getElementById('nav7');div.setAttribute('class','active');
                   }
                   </script>
+                
             <a href="./register">
               <i class="tim-icons icon-laptop"></i>
               <p>Register</p>
@@ -168,6 +168,18 @@
                     var div = document.getElementById('nav8');div.setAttribute('class','active');
                   }
                   </script>
+
+              {% if user_email %}
+              <script>
+
+                  document.getElementById('nav7').style.display='none';
+
+                  document.getElementById('nav8').style.display='none';
+                
+              </script>
+              {% else %}
+                      
+              {% endif %}
             <a href="./login">
               <i class="tim-icons icon-badge"></i>
               <p>Login</p>
@@ -209,21 +221,6 @@
                   <span class="d-lg-none d-md-block">Search</span>
                 </button>
               </li>
-              <li class="dropdown nav-item">
-                <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                  <div class="notification d-none d-lg-block d-xl-block"></div>
-                  <i class="tim-icons icon-sound-wave"></i>
-                  <p class="d-lg-none">
-                    Notifications
-                  </p>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
-                  <li class="nav-link"><a href="#" class="nav-item dropdown-item">Mike John responded to your email</a></li>
-                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">You have 5 more tasks</a></li>
-                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Your friend Michael is in town</a></li>
-                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Another notification</a></li>
-                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Another one</a></li>
-                </ul>
               </li>
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -236,10 +233,9 @@
                   </p>
                 </a>
                 <ul class="dropdown-menu dropdown-navbar">
-                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Profile</a></li>
-                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Settings</a></li>
+                  <li class="nav-link"><a href="./user" class="nav-item dropdown-item">Profile</a></li>
                   <li class="dropdown-divider"></li>
-                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Log out</a></li>
+                  <li class="nav-link"><a href="./drop" class="nav-item dropdown-item">Log out</a></li>
                 </ul>
               </li>
               <li class="separator d-lg-none"></li>
@@ -344,6 +340,8 @@
   <script src="{{ url_for('static',filename='assets/js/black-dashboard.min.js') }}"></script>
   <script src="{{ url_for('static',filename='assets/demo/demo.js') }}"></script>
   <script>
+
+    
     $(document).ready(function() {
       $().ready(function() {
         $sidebar = $('.sidebar');
@@ -469,6 +467,7 @@
         application: "black-dashboard-free"
       });
   </script>
+
 </body>
 
 </html>
