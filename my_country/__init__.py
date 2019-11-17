@@ -56,6 +56,14 @@ def create_app(test_config=None):
 
     @app.route('/lounge',methods=['GET', 'POST'])
     def lounge():
+        
+
+        if request.method == 'POST':
+            something = request.form.get('stock')
+            print(something)
+            # use something to get data
+            # please finish this part
+
         return render_template('lounge.html', title="lounge", user_email=session.get("user"), enable=2)
 
     @app.route('/status')
@@ -119,6 +127,12 @@ def create_app(test_config=None):
     def drop():
         session.pop("user",None)
         return redirect(url_for('hello'))
+
+    @app.route('/engine',methods=['GET','POST'])
+    def engine():
+        stock = request.args.get('stock')
+        
+        return stock
 
 
 

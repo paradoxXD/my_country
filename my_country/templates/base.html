@@ -39,20 +39,6 @@
   
   
 </head>
-<script>
-  var div = document.getElementById('nav1');
-  div.setAttribute('class','deactive')
-</script>
-
-<script>
-
-let sendData=new URLSearchParams();
-
-sendData.append("stock","AAPL");
-
-const req = new Request('127.0.0.1:5000?'+sendData).;
-
-</script>
 
 
 <body class="">
@@ -331,7 +317,7 @@ const req = new Request('127.0.0.1:5000?'+sendData).;
   <script src="{{ url_for('static',filename='assets/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
   <!--  Google Maps Plugin    -->
   <!-- Place this tag in your head or just before your close body tag. -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  
   <!-- Chart JS -->
   <script src="{{ url_for('static',filename='assets/js/plugins/chartjs.min.js') }}"></script>
   <!--  Notifications Plugin    -->
@@ -459,15 +445,14 @@ const req = new Request('127.0.0.1:5000?'+sendData).;
 
     });
   </script>
-  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script>
-    window.TrackJS &&
-      TrackJS.install({
-        token: "ee6fab19c5a04ac1a32a645abde4613a",
-        application: "black-dashboard-free"
-      });
-  </script>
 
+
+
+
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  {% block script %}
+
+  {% endblock %}
 </body>
 
 </html>
