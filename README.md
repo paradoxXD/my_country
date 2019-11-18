@@ -22,4 +22,12 @@ Main page https://www.creative-tim.com/product/black-dashboard
 
 The demo https://demos.creative-tim.com/black-dashboard/examples/dashboard.html
 
+### AJAX/JSON
+
+The basic syntax https://www.w3schools.com/Js/js_ajax_intro.asp
+
+A reference page http://bl.ocks.org/d3noob/9576689
+
+AJAX/JSON intro https://www.youtube.com/watch?v=rJesac0_Ftw
+
 Have fun guys :smile:
