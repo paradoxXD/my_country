@@ -131,8 +131,8 @@ def create_app(test_config=None):
     @app.route('/engine',methods=['GET','POST'])
     def engine():
         stock = request.args.get('stock')
-        
-        return stock
+        #hello = request.args.get('hello')
+        return stock+"-parsed"
 
 
 

@@ -4,140 +4,59 @@
 {% block content %}
 <div class="content">
   <div class="row">
+  
     <div class="col-md-12">
-      <div class="card ">
+      <div class="card card-chart">
         <div class="card-header">
-          <h4 class="card-title"> Simple Table</h4>
+          <div class="row">
+            <div class="col-sm-6 text-left">  
+              <h2 class="card-title">Stock Transaction</h2>
+            </div>
+            <div class="col-sm-6">
+              <div class="btn-group btn-group-toggle btn-group-lg float-right" data-toggle="buttons">
+                <label class="btn btn-sm btn-primary btn-simple active" id="0">
+                  <input type="radio" name="options" checked>
+                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Buy In</span>
+                  <span class="d-block d-sm-none">
+                    <i class="tim-icons icon-single-02"></i>
+                  </span>
+                </label>
+                <label class="btn btn-sm btn-primary btn-simple" id="1">
+                  <input type="radio" class="d-none d-sm-none" name="options">
+                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Sell Out</span>
+                  <span class="d-block d-sm-none">
+                    <i class="tim-icons icon-gift-2"></i>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="col-sm-6 text-left">
+              <form>
+                <div class="input-group mb-3">
+            
+                  <input type="text" class="form-control" placeholder="Stock No." id="usr" name="username">
+                </div>
+                <button type="submit" class="btn btn-primary">Buy In</button>
+              </form>
+
+            </div>
+          </div>
         </div>
         <div class="card-body">
-          <div class="table-responsive">
-            <table class="table tablesorter " id="">
-              <thead class=" text-primary">
-                <tr>
-                  <th>
-                    Name
-                  </th>
-                  <th>
-                    Country
-                  </th>
-                  <th>
-                    City
-                  </th>
-                  <th class="text-center">
-                    Salary
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    Dakota Rice
-                  </td>
-                  <td>
-                    Niger
-                  </td>
-                  <td>
-                    Oud-Turnhout
-                  </td>
-                  <td class="text-center">
-                    $36,738
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Minerva Hooper
-                  </td>
-                  <td>
-                    Curaçao
-                  </td>
-                  <td>
-                    Sinaai-Waas
-                  </td>
-                  <td class="text-center">
-                    $23,789
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Sage Rodriguez
-                  </td>
-                  <td>
-                    Netherlands
-                  </td>
-                  <td>
-                    Baileux
-                  </td>
-                  <td class="text-center">
-                    $56,142
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Philip Chaney
-                  </td>
-                  <td>
-                    Korea, South
-                  </td>
-                  <td>
-                    Overland Park
-                  </td>
-                  <td class="text-center">
-                    $38,735
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Doris Greene
-                  </td>
-                  <td>
-                    Malawi
-                  </td>
-                  <td>
-                    Feldkirchen in Kärnten
-                  </td>
-                  <td class="text-center">
-                    $63,542
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Mason Porter
-                  </td>
-                  <td>
-                    Chile
-                  </td>
-                  <td>
-                    Gloucester
-                  </td>
-                  <td class="text-center">
-                    $78,615
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Jon Porter
-                  </td>
-                  <td>
-                    Portugal
-                  </td>
-                  <td>
-                    Gloucester
-                  </td>
-                  <td class="text-center">
-                    $98,615
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="chart-area">
+            <canvas id="chartBig1"></canvas>
           </div>
         </div>
       </div>
     </div>
+
     <div class="col-md-12">
-      <div class="card  card-plain">
+      <div class="card ">
         <div class="card-header">
-          <h4 class="card-title"> Table on Plain Background</h4>
-          <p class="category"> Here is a subtitle for this table</p>
+          <h2 class="card-title"> Stock Transaction Record</h2>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -145,116 +64,119 @@
               <thead class=" text-primary">
                 <tr>
                   <th>
-                    Name
+                    No.
                   </th>
                   <th>
-                    Country
+                    Stock Name
                   </th>
                   <th>
-                    City
+                    Stock Code
                   </th>
-                  <th class="text-center">
-                    Salary
+                  <th>
+                    Unit Price
+                  </th>
+                  <th>
+                    Shares
+                  </th>
+                  <th>
+                    Total Price
+                  </th>
+                  <th>
+                    Trading Hour
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>
-                    Dakota Rice
+                    1
                   </td>
                   <td>
-                    Niger
+                    Apple
                   </td>
                   <td>
-                    Oud-Turnhout
+                    10001
                   </td>
-                  <td class="text-center">
-                    $36,738
+                  <td>
+                    $100
+                  </td>
+                  <td>
+                    100
+                  </td>
+                  <td>
+                    $10000
+                  </td>
+                  <td>
+                    2019-11-11 00:00:01
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Minerva Hooper
+                    2
                   </td>
                   <td>
-                    Curaçao
+                    Banana
                   </td>
                   <td>
-                    Sinaai-Waas
+                    10010
                   </td>
-                  <td class="text-center">
-                    $23,789
+                  <td>
+                    $150
+                  </td>
+                  <td>
+                    200
+                  </td>
+                  <td>
+                    $30000
+                  </td>
+                  <td>
+                    2019-11-11 00:01:03
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Sage Rodriguez
+                    3
                   </td>
                   <td>
-                    Netherlands
+                    Cats
                   </td>
                   <td>
-                    Baileux
+                    10030
                   </td>
-                  <td class="text-center">
-                    $56,142
+                  <td>
+                    $200
+                  </td>
+                  <td>
+                    100
+                  </td>
+                  <td>
+                    $20000
+                  </td>
+                  <td>
+                    2019-11-11 00:03:23
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Philip Chaney
+                    4
                   </td>
                   <td>
-                    Korea, South
+                    Dogs
                   </td>
                   <td>
-                    Overland Park
-                  </td>
-                  <td class="text-center">
-                    $38,735
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Doris Greene
+                    10050
                   </td>
                   <td>
-                    Malawi
+                    $120
                   </td>
                   <td>
-                    Feldkirchen in Kärnten
-                  </td>
-                  <td class="text-center">
-                    $63,542
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Mason Porter
+                    200
                   </td>
                   <td>
-                    Chile
+                    $24000
                   </td>
                   <td>
-                    Gloucester
-                  </td>
-                  <td class="text-center">
-                    $78,615
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Jon Porter
-                  </td>
-                  <td>
-                    Portugal
-                  </td>
-                  <td>
-                    Gloucester
-                  </td>
-                  <td class="text-center">
-                    $98,615
+                    2019-11-11 00:06:47
                   </td>
                 </tr>
               </tbody>
@@ -264,5 +186,6 @@
       </div>
     </div>
   </div>
+
 </div>
 {% endblock content %}

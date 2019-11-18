@@ -118,8 +118,8 @@
                   }
                   </script>
             <a href="./tables">
-              <i class="tim-icons icon-puzzle-10"></i>
-              <p>Table List</p>
+              <i class="tim-icons icon-bag-16"></i>
+              <p>Buy&Sell</p>
             </a>
           </li>
           <li id='nav6' ,class="deactive">
@@ -202,10 +202,85 @@
           </button>
           <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ml-auto">
-              <li class="search-bar input-group">
-                <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split" ></i>
-                  <span class="d-lg-none d-md-block">Search</span>
-                </button>
+              <li>
+               <div>
+                 <p id='localtime'>
+                   
+                 </p>
+                 <p id='faketime'>
+                  
+                 </p>
+                 <!-- give time -->
+                 <script>
+                   // personalized function addDays
+                   Date.prototype.addDays = function(days) {
+                    var date = new Date(this.valueOf());
+                    date.setDate(date.getDate() + days);
+                    return date;
+                }
+
+                  // real time 
+              
+                  //console.log("starting timer...");
+                  // expected output: starting timer...
+                  var user_start = new Date();
+                  const stock_start = new Date('2000-01-03 00:00:00');
+
+                  setInterval(function() {
+                    fnDate();}, 1000);
+
+                  
+
+                    //js 获取当前时间
+                  function fnDate(){
+                  var oDiv=document.getElementById("localtime");
+                  var date=new Date();
+                  var year=date.getFullYear();//当前年份
+                  var month=date.getMonth();//当前月份
+                  var data=date.getDate();//天
+                  var hours=date.getHours();//小时
+                  var minute=date.getMinutes();//分
+                  var second=date.getSeconds();//秒
+                  var time=year+"-"+fnW((month+1))+"-"+fnW(data)+" "+fnW(hours)+":"+fnW(minute)+":"+fnW(second);
+                  oDiv.innerHTML="Local Time:    " + time;
+                  }
+                  //补位 当某个字段不是两位数时补0
+                  function fnW(str){
+                  var num;
+                  str>10?num=str:num="0"+str;
+                  return num;
+                  };
+
+                  setInterval(function() {
+                    faketime(user_start);}, 1000);
+                  
+                  // manipulate with user_start
+                    function faketime(user_start){
+                      var cur_date = new Date();
+                      var diff_sec = (cur_date - user_start)/1000;
+                      
+                      const speed = 2;
+
+                      var more_days = diff_sec/speed;
+
+                      var fake_date = stock_start.addDays(parseInt(more_days));
+
+                      var hello=document.getElementById("faketime");
+                      var year=fake_date.getFullYear();//当前年份
+                      var month=fake_date.getMonth();//当前月份
+                      var data=fake_date.getDate();//天
+                      
+                      var time=year+"-"+fnW((month+1))+"-"+fnW(data);
+                      hello.innerHTML="Stock Time:    " + time;
+
+                    };
+
+                   
+                  
+              
+              
+                </script>
+               </div>
               </li>
               </li>
               <li class="dropdown nav-item">
@@ -325,6 +400,8 @@
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{ url_for('static',filename='assets/js/black-dashboard.min.js') }}"></script>
   <script src="{{ url_for('static',filename='assets/demo/demo.js') }}"></script>
+  <script src="{{ url_for('static',filename='assets/demo/test.js') }}"></script>
+  
   <script>
 
     
@@ -438,18 +515,10 @@
       });
     });
   </script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
-
-    });
-  </script>
-
-
 
 
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+
   {% block script %}
 
   {% endblock %}
