@@ -597,7 +597,7 @@
 
   $(document).ready(function() {
     
-    var obj = new test.initlounge([10,10,10,10,10,10,10,10,10,10,10,20]);
+    var obj = new test.initlounge([10,10,10,10,10,10,10,10,10,10,10,10]);
 
     //var t1=window.setTimeout(obj.update_data([100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 70]), 1000 * 5);
     //var t2=window.setTimeout("alert('5s')", 5000);
@@ -607,12 +607,15 @@
     console.log("starting timer...");
     // expected output: starting timer...
 
-    setTimeout(function() {
+    setInterval(function() {
       var millis = Date.now() - start;
-      obj.update_data([100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 70])
-      console.log("seconds elapsed = " + Math.floor(millis/1000));
+      var arr_1 = [10, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 70]
+      arr_1[0] = Math.floor(Math.random() * 100);  
+      arr_1[2] = Math.floor(Math.random() * 100);  
+      obj.update_data(arr_1)
+     
       // expected output : seconds elapsed = 2
-    }, 3000);
+    }, 1000);
   });
 
   
