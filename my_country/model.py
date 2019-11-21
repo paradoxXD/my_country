@@ -5,9 +5,9 @@
 
 import pymysql.cursors
 
-def User(username, email, password):
+def User(username, email, password, datetime):
     connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
-    sql = "INSERT INTO users(username,email,user_password)VALUES('{}','{}','{}');".format(username,email,password)
+    sql = "INSERT INTO users(username,email,user_password,start_time)VALUES('{}','{}','{}','{}');".format(username,email,password,datetime)
     try:
         with connection.cursor() as cursor:
 
@@ -51,3 +51,20 @@ def already_exist(username, email):
         return False
 
     return True
+
+
+def Time(email):
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+
+    try:
+        with connection.cursor() as cursor:
+
+            sql = "SELECT start_time FROM users WHERE email='{}';".format(email)
+            cursor.execute(sql)
+            result = cursor.fetchone()
+    finally:
+            connection.close()
+    if result == None:
+        return None
+    else:
+        return result[0]

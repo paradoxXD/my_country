@@ -7,7 +7,8 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask import Flask, render_template, url_for, flash, redirect, session, g, request
 from forms import RegistrationForm, LoginForm
 from flask_bcrypt import Bcrypt
-from model import User, Get_password, already_exist
+from model import User, Get_password, already_exist, Time
+from datetime import datetime
 
 
 
@@ -44,7 +45,7 @@ def create_app(test_config=None):
     @app.route('/portfolio',methods=['GET', 'POST'])
     def hello():
         
-        return render_template('portfolio.html',title="portfolio", user_email=session.get("user"), enable=1)
+        return render_template('portfolio.html',time=session.get('time'),title="portfolio", user_email=session.get("user"), enable=1)
         
 
 
@@ -64,24 +65,20 @@ def create_app(test_config=None):
             # use something to get data
             # please finish this part
 
-        return render_template('lounge.html', title="lounge", user_email=session.get("user"), enable=2)
+        return render_template('lounge.html', title="lounge",time=session.get('time'), user_email=session.get("user"), enable=2)
 
     @app.route('/status')
     def notifications():
-        return render_template('status.html', title="status",user_email=session.get("user"), enable=3)
+        return render_template('status.html', title="status",time=session.get('time'),user_email=session.get("user"), enable=3)
 
     @app.route('/user')
     def user():
-        return render_template('user.html', title='users', user_email=session.get("user"), enable=4)
+        return render_template('user.html', title='users',time=session.get('time'), user_email=session.get("user"), enable=4)
 
     @app.route('/tables')
     def tables():
-        return render_template('tables.html', user_email=session.get("user"), enable=5)
+        return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
 
-    @app.route('/typography')
-    def typography():
-        return render_template('typography.html', user_email=session.get("user"), enable=6)
-        
 
     @app.route('/register', methods=['GET','POST'])
     def register():
@@ -90,19 +87,22 @@ def create_app(test_config=None):
             
             if already_exist(username=form.username.data, email=form.email.data):
                 flash('The email or username has been used. Please check username and password', 'danger')
-                return render_template('register.html', user_email=session.get("user"), title='register', form=form, enable=7)
+                return render_template('register.html',time=session.get('time'), user_email=session.get("user"), title='register', form=form, enable=7)
 
             
             # cannot validate whether the email is in the database or not
     
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
             
+            now = datetime.now()
+            user_time = now.strftime("%Y-%m-%d %H:%M:%S")
+
             # create user
-            User(username=form.username.data, email=form.email.data, password=hashed_password)
+            User(username=form.username.data, email=form.email.data, password=hashed_password, datetime=user_time)
             
             flash('Account created for {}!'.format(form.username.data), 'success')
             return redirect(url_for('login'))
-        return render_template('register.html', user_email=session.get("user"), title='Register', form=form, enable=7)
+        return render_template('register.html', time=session.get('time'),user_email=session.get("user"), title='Register', form=form, enable=7)
 
     @app.route('/login', methods=['GET','POST'])
     def login():
@@ -118,14 +118,17 @@ def create_app(test_config=None):
             if bcrypt.check_password_hash(getPass, form.password.data) is True:
                 flash('You have been logged in!', 'success')
                 session['user'] = form.email.data
+                session['time'] = Time(form.email.data)
+                # print(session.get('time'))
                 return redirect(url_for('hello'))
             else:
                 flash('Login Unsuccessful. Please check username and password', 'danger')
-        return render_template('login.html', user_email=session.get("user"), title='Login', form=form, enable=8)
+        return render_template('login.html', time=session.get('time'),user_email=session.get("user"),title='Login', form=form, enable=8)
 
     @app.route('/drop')
     def drop():
         session.pop("user",None)
+        session.pop("time",None)
         return redirect(url_for('hello'))
 
     @app.route('/engine',methods=['GET','POST'])
@@ -133,6 +136,8 @@ def create_app(test_config=None):
         stock = request.args.get('stock')
         #hello = request.args.get('hello')
         return stock+"-parsed"
+
+    
 
 
 
