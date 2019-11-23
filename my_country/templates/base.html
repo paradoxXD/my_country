@@ -59,25 +59,11 @@
         </div>
         
         <ul class="nav" >
-          <li id="nav1", class="deactive" >
+          <li id='nav2' ,class="deactive">
               <script>
                   var enable = {{ enable }};
                   //alert(enable);
-                  if(enable==1){
-                    var div = document.getElementById('nav1');div.setAttribute('class','active');
-                  }
-            
-            
-                </script>  
-              
-            <a href="./portfolio">
-              <i class="tim-icons icon-chart-pie-36"></i>
-              <p>PORTFOLIO</p>
-            </a>
-          </li>
-          <li id='nav2' ,class="deactive">
-              <script>
-                  
+                
                   if(enable==2){
                     var div = document.getElementById('nav2');div.setAttribute('class','active');
                   }
@@ -324,6 +310,16 @@
   <script src="{{ url_for('static',filename='assets/demo/test.js') }}"></script>
   
   <script>
+
+     
+ 
+ 
+   </script>
+  <script>
+    
+    
+    $(document).ready(function() {
+
       // personalized function addDays
       Date.prototype.addDays = function(days) {
        var date = new Date(this.valueOf());
@@ -333,7 +329,9 @@
 
      // real time 
  
-
+    var time; // time for fake date
+    
+    
      var user_start = $('#my-data').data("time");
      user_start = Date.parse(user_start)
 
@@ -389,22 +387,21 @@
          var month=fake_date.getMonth();//当前月份
          var data=fake_date.getDate();//天
          
-         var time=year+"-"+fnW((month+1))+"-"+fnW(data);
+         time=year+"-"+fnW((month+1))+"-"+fnW(data);
          hello.innerHTML="Stock Time:    " + time;
+         
+         if(year>=2019){
+          hello.innerHTML="Stock Time:  Game completed!  "; 
+         };
+
+         window.time = time
          }
 
         
        };
 
       
-     
- 
- 
-   </script>
-  <script>
-    
-    
-    $(document).ready(function() {
+
       $().ready(function() {
         $sidebar = $('.sidebar');
         $navbar = $('.navbar');

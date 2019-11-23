@@ -1,5 +1,5 @@
 test = {
-    initlounge: function(new_data){
+    initlounge: function(new_data,new_label){
     
 
         
@@ -53,7 +53,7 @@ test = {
       };
         
       
-      var chart_labels = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+      var chart_labels = new_label;
       var week_data = new_data;
 
       
@@ -94,11 +94,14 @@ test = {
 
 
 
-    this.update_data = function(new_data){
+    this.update_data = function(new_data,sql_label){
+      console.log(new_label);
+      console.log(new_data);
+
       week_data = new_data;
       var data = myChartData.config.data;
       data.datasets[0].data = week_data;
-      data.labels = chart_labels;
+      data.labels = sql_label;
       myChartData.update();
     }
 

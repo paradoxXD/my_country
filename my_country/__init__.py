@@ -7,7 +7,7 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask import Flask, render_template, url_for, flash, redirect, session, g, request
 from forms import RegistrationForm, LoginForm
 from flask_bcrypt import Bcrypt
-from model import User, Get_password, already_exist, Time
+from model import User, Get_password, already_exist, Time, get_stock_lounge_week
 from datetime import datetime
 
 
@@ -40,13 +40,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/',methods=['GET', 'POST'])
-    @app.route('/portfolio',methods=['GET', 'POST'])
-    def hello():
-        
-        return render_template('portfolio.html',time=session.get('time'),title="portfolio", user_email=session.get("user"), enable=1)
-        
 
 
     @app.before_request
@@ -55,6 +48,7 @@ def create_app(test_config=None):
         if 'user' in session:
             g.user = session['user']
 
+    @app.route('/',methods=['GET', 'POST'])
     @app.route('/lounge',methods=['GET', 'POST'])
     def lounge():
         
@@ -120,7 +114,7 @@ def create_app(test_config=None):
                 session['user'] = form.email.data
                 session['time'] = Time(form.email.data)
                 # print(session.get('time'))
-                return redirect(url_for('hello'))
+                return redirect(url_for('lounge'))
             else:
                 flash('Login Unsuccessful. Please check username and password', 'danger')
         return render_template('login.html', time=session.get('time'),user_email=session.get("user"),title='Login', form=form, enable=8)
@@ -129,13 +123,21 @@ def create_app(test_config=None):
     def drop():
         session.pop("user",None)
         session.pop("time",None)
-        return redirect(url_for('hello'))
+        return redirect(url_for('lounge'))
 
     @app.route('/engine',methods=['GET','POST'])
     def engine():
+        
         stock = request.args.get('stock')
-        #hello = request.args.get('hello')
-        return stock+"-parsed"
+        
+        time = request.args.get('time')
+        
+        print(stock)
+        print(time)
+        result = get_stock_lounge_week(stock,time)
+
+
+        return result
 
     
 

@@ -1,5 +1,5 @@
-from datetime import datetime
+a = [0,0]
 
-now = datetime.now()
-datetime = now.strftime("%Y-%m-%d %H:%M:%S")
-print(datetime)
+a = str(a)
+
+print(a)
