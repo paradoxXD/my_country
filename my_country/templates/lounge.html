@@ -286,16 +286,16 @@
 
 
 <script>
-    $(document).ready(function(){
-      //循环执行，每隔1秒钟执行一次 1000 
-      var t1=window.setInterval(refreshCount, 1000);
-      function refreshCount() {
-        console.log("ready");
+  //   $(document).ready(function(){
+  //     //循环执行，每隔1秒钟执行一次 1000 
+  //     var t1=window.setInterval(refreshCount, 1000);
+  //     function refreshCount() {
+  //       console.log("ready");
         
-      }
-      //去掉定时器的方法  
-      window.clearInterval(t1);   
-   }); 
+  //     }
+  //     //去掉定时器的方法  
+  //     window.clearInterval(t1);   
+  //  }); 
   </script>
 
 
@@ -320,45 +320,52 @@
 
   $(document).ready(function() {
     
-    var obj = new test.initlounge([10,10,10,10,10,10,10],['1-1','1-2','1-3','1-4','1-5','1-6','1-7']);
+    var obj = new test.initlounge([0,0,0,0,0,0,0],['2000-01-01','2000-01-2','2000-01-03','2000-01-04','2000-01-05','2000-01-06','2000-01-07']);
     var selected_stock;
     var btn = document.getElementById("select");
         btn.addEventListener("click",function(){
-        
-        var stock = document.getElementById("stock").value;
-        //alert(stock);
-        selected_stock = stock
-        var URL = "./engine?stock="+stock+'&time='+window.time;
-        
-        var req = new XMLHttpRequest();
-        req.open('GET',URL,true);
-        req.onload = function() {
-        if (req.status >= 200 && req.status < 400) {
-          var ourData = JSON.parse(req.responseText);
-          // var result = document.getElementById('lounge_body').innerHTML;
-          // result = "<td>1</td>"
+        var week = document.getElementById('3');
+        if (week.getAttribute('class') =='btn btn-sm btn-primary btn-simple active'){
+          var stock = document.getElementById("stock").value;
+          //alert(stock);
+          selected_stock = stock
+          var URL = "./engine?stock="+stock+'&time='+window.time;
           
-          obj.update_data(ourData.price,ourData.date)
-        } else {
-          console.log("We connected to the server, but it returned an error.");
+          var req = new XMLHttpRequest();
+          req.open('GET',URL,true);
+          req.onload = function() {
+          if (req.status >= 200 && req.status < 400) {
+            var ourData = JSON.parse(req.responseText);
+            // var result = document.getElementById('lounge_body').innerHTML;
+            // result = "<td>1</td>"
+            
+            obj.update_data(ourData.price,ourData.date)
+          } else {
+            console.log("We connected to the server, but it returned an error.");
+          }
+          
+        };
+          req.onerror = function() {
+          console.log("Connection error");
+        };
+      
+          req.send();
         }
+
+
+        window.clearInterval(t1);  
+        var t1 = setInterval(function(){
         
-      };
-        req.onerror = function() {
-        console.log("Connection error");
-      };
-    
-        req.send();
-      });
-
-
-
-    
-    var t1 = setInterval(function(){
-      //alert(stock);
+      
+        var week = document.getElementById('3');
+        var month = document.getElementById('4');
+        var year = document.getElementById('5');
+      
+      
+        //alert(stock);
       if (selected_stock == null){
       var a = 1;
-      }else{
+      }else if(week.getAttribute('class') =='btn btn-sm btn-primary btn-simple active'){
         var URL = "./engine?stock="+selected_stock+'&time='+window.time;
             
             var req = new XMLHttpRequest();
@@ -366,11 +373,9 @@
             req.onload = function() {
             if (req.status >= 200 && req.status < 400) {
               var ourData = JSON.parse(req.responseText);
-              console.log(ourData);
-              console.log(ourData.date);
-              console.log(ourData.price);
-              
+              obj.update_point_size(4);
               obj.update_data(ourData.price,ourData.date)
+              console.log(ourData.price)
             } else {
               console.log("We connected to the server, but it returned an error.");
             }
@@ -383,23 +388,58 @@
             req.send();
           
         
-      }},2000)
+      }else if (month.getAttribute('class') =='btn btn-sm btn-primary btn-simple active'){
+        var URL = "./engine2?stock="+selected_stock+'&time='+window.time;
+            
+            var req = new XMLHttpRequest();
+            req.open('GET',URL,true);
+            req.onload = function() {
+            if (req.status >= 200 && req.status < 400) {
+              var ourData = JSON.parse(req.responseText);
+              obj.update_point_size(4);
+              obj.update_data(ourData.price,ourData.date)
+            } else {
+              console.log("We connected to the server, but it returned an error.");
+            }
+            
+          };
+            req.onerror = function() {
+            console.log("Connection error");
+          };
+        
+            req.send();
+      }else if (year.getAttribute('class') =='btn btn-sm btn-primary btn-simple active'){
 
+        
+        var URL = "./engine3?stock="+selected_stock+'&time='+window.time;
+            
+            var req = new XMLHttpRequest();
+            req.open('GET',URL,true);
+            req.onload = function() {
+            if (req.status >= 200 && req.status < 400) {
+              var ourData = JSON.parse(req.responseText);
+              obj.update_point_size(1);
+              obj.update_data(ourData.price,ourData.date);
+            } else {
+              console.log("We connected to the server, but it returned an error.");
+            }
+            
+          };
+            req.onerror = function() {
+            console.log("Connection error");
+          };
+        
+            req.send();
+      }else{
+
+      }
     
+    },4000)
+    
+    });
 
-
-
-
-    // setInterval(function() {
-    //   var millis = Date.now() - start;
-    //   var arr_1 = [10, 70, 90, 70, 85, 60, 75]
-    //   arr_1[0] = Math.floor(Math.random() * 100);  
-    //   arr_1[2] = Math.floor(Math.random() * 100);  
-    //   obj.update_data(arr_1)
-     
-    //   // expected output : seconds elapsed = 2
-    // }, 1000);
-  });
+      });
+    
 
   
 </script>
