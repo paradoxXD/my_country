@@ -7,7 +7,7 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask import Flask, render_template, url_for, flash, redirect, session, g, request
 from forms import RegistrationForm, LoginForm
 from flask_bcrypt import Bcrypt
-from model import User, Get_password, already_exist, Time, get_stock_lounge_week, get_stock_lounge_month,get_stock_lounge_year
+from model import User, Get_password, already_exist, Time, get_stock_lounge_week, get_stock_lounge_month,get_stock_lounge_year,get_All_Stock,get_Recomd
 from datetime import datetime
 
 
@@ -52,6 +52,7 @@ def create_app(test_config=None):
     @app.route('/lounge',methods=['GET', 'POST'])
     def lounge():
         
+        All_Stocks = get_All_Stock()
 
         if request.method == 'POST':
             something = request.form.get('stock')
@@ -59,7 +60,7 @@ def create_app(test_config=None):
             # use something to get data
             # please finish this part
 
-        return render_template('lounge.html', title="lounge",time=session.get('time'), user_email=session.get("user"), enable=2)
+        return render_template('lounge.html', title="lounge",time=session.get('time'), user_email=session.get("user"), enable=2,tasks=All_Stocks)
 
     @app.route('/status')
     def notifications():
@@ -168,14 +169,14 @@ def create_app(test_config=None):
 
         return result
 
-
     
-
-
-
+    @app.route('/recomd',methods=['GET','POST'])
+    def recomd():  
+        time = request.args.get('time')
+        result = get_Recomd(time)
+        return result
 
     return app
-
 
 if __name__ == "__main__":
     
