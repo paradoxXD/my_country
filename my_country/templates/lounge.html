@@ -158,257 +158,13 @@
                     Stock Code
                   </th>
                   <th>
-                    Shares
+                    Company Name
                   </th>
-                  <th>
-                    Unit Price
-                  </th>
-                  <th>
-                    Total Price
-                  </th>
+
                 </tr>
               </thead>
               <tbody id='lounge_body'>
-                <tr>
-                  <td>
-                    1
-                  </td>
-                  <td>
-                    ORCL
-                  </td>
-                  <td>
-                    10104
-                  </td>
-                  <td>
-                    300
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    $3000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    2
-                  </td>
-                  <td>
-                    MSFT
-                  </td>
-                  <td>
-                    10107
-                  </td>
-                  <td>
-                    400
-                  </td>
-                  <td>
-                    $50
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    3
-                  </td>
-                  <td>
-                    ORCL
-                  </td>
-                  <td>
-                    10104
-                  </td>
-                  <td>
-                    300
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    $3000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    4
-                  </td>
-                  <td>
-                    MSFT
-                  </td>
-                  <td>
-                    10107
-                  </td>
-                  <td>
-                    400
-                  </td>
-                  <td>
-                    $50
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    5
-                  </td>
-                  <td>
-                    ORCL
-                  </td>
-                  <td>
-                    10104
-                  </td>
-                  <td>
-                    300
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    $3000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    6
-                  </td>
-                  <td>
-                    MSFT
-                  </td>
-                  <td>
-                    10107
-                  </td>
-                  <td>
-                    400
-                  </td>
-                  <td>
-                    $50
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    7
-                  </td>
-                  <td>
-                    ORCL
-                  </td>
-                  <td>
-                    10104
-                  </td>
-                  <td>
-                    300
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    $3000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    8
-                  </td>
-                  <td>
-                    MSFT
-                  </td>
-                  <td>
-                    10107
-                  </td>
-                  <td>
-                    400
-                  </td>
-                  <td>
-                    $50
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    9
-                  </td>
-                  <td>
-                    ORCL
-                  </td>
-                  <td>
-                    10104
-                  </td>
-                  <td>
-                    300
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    $3000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    10
-                  </td>
-                  <td>
-                    MSFT
-                  </td>
-                  <td>
-                    10107
-                  </td>
-                  <td>
-                    400
-                  </td>
-                  <td>
-                    $50
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    11
-                  </td>
-                  <td>
-                    ORCL
-                  </td>
-                  <td>
-                    10104
-                  </td>
-                  <td>
-                    300
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    $3000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    12
-                  </td>
-                  <td>
-                    MSFT
-                  </td>
-                  <td>
-                    10107
-                  </td>
-                  <td>
-                    400
-                  </td>
-                  <td>
-                    $50
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                </tr>
+              
               </tbody>
             </table>
           </div>
@@ -646,6 +402,21 @@
   });
 
   
+</script>
+
+<script>
+  var req1 = new XMLHttpRequest();
+      req1.open('GET',URL,true);
+      req1.onload = function() {
+      if (req.status >= 200 && req.status < 400) {
+        var result = document.getElementById('lounge_body').innerHTML;
+        result = "<td>1</td>"         
+        obj.update_data(ourData.price,ourData.date)
+      } else {
+        console.log("We connected to the server, but it returned an error.");
+      }
+
+
 </script>
     
 {% endblock script %}
