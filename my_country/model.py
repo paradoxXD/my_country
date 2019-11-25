@@ -107,6 +107,74 @@ def get_stock_lounge_week(stock,time):
     return dic
 
 
+def get_stock_lounge_month(stock,time):
+
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+
+    try:
+        with connection.cursor() as cursor:
+
+            sql = "select IFNULL(TICKER,0),IFNULL(PRC, 0), IFNULL(date, 0) from stockprice where date between DATE_SUB('{}', INTERVAL 31 DAY)  and  '{}' and TICKER = '{}' ;".format(time,time,stock)
+            cursor.execute(sql)
+            result = cursor.fetchall()
+    finally:
+            connection.close()
+    if result == None:
+        print(None)
+    else:
+        #print(result)
+        price = []
+        date = []
+        for one in result:
+
+            price.append(one[1])
+            #mod_date = time.strptime(one[2], "%Y-%m-%d")
+            mod_day = one[2].split( )[0]
+            date.append(mod_day)
+
+        #print(price)
+        #print(date)
+        dic = {
+        "price": price,
+        "date": date
+    }
+    
+    return dic
+
+def get_stock_lounge_year(stock,time):
+
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+
+    try:
+        with connection.cursor() as cursor:
+
+            sql = "select IFNULL(TICKER,0),IFNULL(PRC, 0), IFNULL(date, 0) from stockprice where date between DATE_SUB('{}', INTERVAL 365 DAY)  and  '{}' and TICKER = '{}' ;".format(time,time,stock)
+            cursor.execute(sql)
+            result = cursor.fetchall()
+    finally:
+            connection.close()
+    if result == None:
+        print(None)
+    else:
+        #print(result)
+        price = []
+        date = []
+        for one in result:
+
+            price.append(one[1])
+            #mod_date = time.strptime(one[2], "%Y-%m-%d")
+            mod_day = one[2].split( )[0]
+            date.append(mod_day)
+
+        #print(price)
+        #print(date)
+        dic = {
+        "price": price,
+        "date": date
+    }
+    
+    return dic
+
 
 # connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
 

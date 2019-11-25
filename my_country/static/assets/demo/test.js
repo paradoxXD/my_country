@@ -30,8 +30,8 @@ test = {
               zeroLineColor: "transparent",
             },
             ticks: {
-              suggestedMin: 60,
-              suggestedMax: 125,
+              // suggestedMin: 60,
+              // suggestedMax: 125,
               padding: 20,
               fontColor: "#9a9a9a"
             }
@@ -95,9 +95,6 @@ test = {
 
 
     this.update_data = function(new_data,sql_label){
-      console.log(new_label);
-      console.log(new_data);
-
       week_data = new_data;
       var data = myChartData.config.data;
       data.datasets[0].data = week_data;
@@ -107,31 +104,11 @@ test = {
 
 
   
-
-
-    $("#3").click(function() {
+    this.update_point_size= function(size){
       var data = myChartData.config.data;
-      data.datasets[0].data = week_data;
-      data.labels = chart_labels;
-      myChartData.update();
-    });
-    $("#4").click(function() {
-      var month_data = [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120];
-      var data = myChartData.config.data;
-      data.datasets[0].data = month_data;
-      data.labels = chart_labels;
-      myChartData.update();
-    });
+      data.datasets[0].pointRadius = size;
+    }
 
-    $("#5").click(function() {
-      var year_data = [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130];
-      var data = myChartData.config.data;
-      data.datasets[0].data = year_data;
-      data.labels = chart_labels;
-      myChartData.update();
 
-          
-
-    });
   }
 }

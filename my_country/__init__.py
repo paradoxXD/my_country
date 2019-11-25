@@ -7,7 +7,7 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask import Flask, render_template, url_for, flash, redirect, session, g, request
 from forms import RegistrationForm, LoginForm
 from flask_bcrypt import Bcrypt
-from model import User, Get_password, already_exist, Time, get_stock_lounge_week
+from model import User, Get_password, already_exist, Time, get_stock_lounge_week, get_stock_lounge_month,get_stock_lounge_year
 from datetime import datetime
 
 
@@ -138,6 +138,36 @@ def create_app(test_config=None):
 
 
         return result
+
+    @app.route('/engine2',methods=['GET','POST'])
+    def engine2():
+        
+        stock = request.args.get('stock')
+        
+        time = request.args.get('time')
+        
+        print(stock)
+        print(time)
+        result = get_stock_lounge_month(stock,time)
+
+
+        return result
+
+    
+    @app.route('/engine3',methods=['GET','POST'])
+    def engine3():
+        
+        stock = request.args.get('stock')
+        
+        time = request.args.get('time')
+        
+        print(stock)
+        print(time)
+        result = get_stock_lounge_year(stock,time)
+
+
+        return result
+
 
     
 
