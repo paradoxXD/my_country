@@ -176,31 +176,45 @@ def get_stock_lounge_year(stock,time):
     return dic
 
 
-# connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+def get_All_Stock():
 
-# try:
-#     with connection.cursor() as cursor:
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
 
-#         sql = "select IFNULL(TICKER,0),IFNULL(PRC, 0), IFNULL(date, 0) from stockprice where date between DATE_SUB('{}', INTERVAL 8 DAY)  and  '{}' and TICKER = '{}' ;".format('2010-03-11 00:00:00','2010-03-11 00:00:00','AAPL')
-#         cursor.execute(sql)
-#         result = cursor.fetchall()
-# finally:
-#         connection.close()
-# if result == None:
-#     print(None)
-# else:
-#     price = []
-#     date = []
-#     for one in result:
+    try:
+        with connection.cursor() as cursor:
 
-#         price.append(one[1])
-#         #mod_date = time.strptime(one[2], "%Y-%m-%d")
-#         mod_day = one[2].split( )[0]
-#         date.append(mod_day)
+            sql = "select TICKER, COMNAM, PERMNO from company_stock natural join CPSP_ticker;"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+    finally:
+            connection.close()
+    if result == None:
+        print(None)
+    else:
+        #mylist=result
+        mylist=dict()
+        count=1
+        for row in result:
+            mylist[count]=[row[0],row[1],row[2]]
+            count+=1
+    return mylist
 
-#     dic = {
-#         "price": str(price),
-#         "date": str(date)
-#     }
+def get_Recomd(time):
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
 
-#     print(dic)
+    try:
+        with connection.cursor() as cursor:
+
+            sql = "select A.TICKER, PERMNO, concat(round(10*(A.PRC-B.PRC)/A.PRC,4),'%'), A.PRC from stockprice as A, stockprice as B natural join CPSP_ticker where A.date='{}' and B.date=if(A.date like '2000-01%', '2000-01-03', DATE_SUB(A.date, INTERVAL 30 DAY)) and A.TICKER=B.TICKER order by (A.PRC-B.PRC)/A.PRC desc limit 10;".format(time)
+            cursor.execute(sql)
+            result = cursor.fetchall()
+    finally:
+            connection.close()
+    if result == None:
+        return None
+    else:
+        myhtml=''
+        for i in range(10):
+            myhtml+='<tr><td>'+str(i+1)+'</td><td>'+result[i][0]+'</td><td>'+str(result[i][1])+'</td><td>'+result[i][2]+'</td><td>'+str(result[i][3])+'</td></tr>'
+
+    return myhtml

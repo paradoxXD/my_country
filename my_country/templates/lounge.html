@@ -86,11 +86,14 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table tablesorter " id="">
+              <table class="table tablesorter">
                 <thead class=" text-primary">
                   <tr>
                     <th>
-                      Stock Name
+                      No.
+                    </th>
+                    <th>
+                      Ticker
                     </th>
                     <th>
                       Stock Code
@@ -103,37 +106,13 @@
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      HON
-                    </td>
-                    <td>
-                      10145
-                    </td>
-                    <td>
-                      -3.54%
-                    </td>
-                    <td>
-                      $11.25
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      FISV
-                    </td>
-                    <td>
-                      10696
-                    </td>
-                    <td>
-                      -6.67%
-                    </td>
-                    <td>
-                      $59.00
-                    </td>
-                  </tr>
+                <tbody id='Recomd_body'>
+                
                 </tbody>
               </table>
+            </div>
+            <div class="col-sm-12">
+              <button type="button" class="btn btn-fill btn-primary" name='Fresh' id='Fresh'>Fresh</button>
             </div>
           </div>
       </div>
@@ -152,263 +131,33 @@
                     No.
                   </th>
                   <th>
-                    Stock Name
+                    Ticker
                   </th>
                   <th>
                     Stock Code
                   </th>
                   <th>
-                    Shares
-                  </th>
-                  <th>
-                    Unit Price
-                  </th>
-                  <th>
-                    Total Price
+                    Company name
                   </th>
                 </tr>
               </thead>
               <tbody id='lounge_body'>
-                <tr>
-                  <td>
-                    1
-                  </td>
-                  <td>
-                    ORCL
-                  </td>
-                  <td>
-                    10104
-                  </td>
-                  <td>
-                    300
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    $3000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    2
-                  </td>
-                  <td>
-                    MSFT
-                  </td>
-                  <td>
-                    10107
-                  </td>
-                  <td>
-                    400
-                  </td>
-                  <td>
-                    $50
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    3
-                  </td>
-                  <td>
-                    ORCL
-                  </td>
-                  <td>
-                    10104
-                  </td>
-                  <td>
-                    300
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    $3000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    4
-                  </td>
-                  <td>
-                    MSFT
-                  </td>
-                  <td>
-                    10107
-                  </td>
-                  <td>
-                    400
-                  </td>
-                  <td>
-                    $50
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    5
-                  </td>
-                  <td>
-                    ORCL
-                  </td>
-                  <td>
-                    10104
-                  </td>
-                  <td>
-                    300
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    $3000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    6
-                  </td>
-                  <td>
-                    MSFT
-                  </td>
-                  <td>
-                    10107
-                  </td>
-                  <td>
-                    400
-                  </td>
-                  <td>
-                    $50
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    7
-                  </td>
-                  <td>
-                    ORCL
-                  </td>
-                  <td>
-                    10104
-                  </td>
-                  <td>
-                    300
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    $3000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    8
-                  </td>
-                  <td>
-                    MSFT
-                  </td>
-                  <td>
-                    10107
-                  </td>
-                  <td>
-                    400
-                  </td>
-                  <td>
-                    $50
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    9
-                  </td>
-                  <td>
-                    ORCL
-                  </td>
-                  <td>
-                    10104
-                  </td>
-                  <td>
-                    300
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    $3000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    10
-                  </td>
-                  <td>
-                    MSFT
-                  </td>
-                  <td>
-                    10107
-                  </td>
-                  <td>
-                    400
-                  </td>
-                  <td>
-                    $50
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    11
-                  </td>
-                  <td>
-                    ORCL
-                  </td>
-                  <td>
-                    10104
-                  </td>
-                  <td>
-                    300
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    $3000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    12
-                  </td>
-                  <td>
-                    MSFT
-                  </td>
-                  <td>
-                    10107
-                  </td>
-                  <td>
-                    400
-                  </td>
-                  <td>
-                    $50
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                </tr>
+              {% for key in tasks.keys() %}
+              <tr>
+                <td>
+                  {{ key }}
+                </td>
+                <td>
+                  {{ tasks[key][0]}}
+                </td>
+                <td>
+                  {{ tasks[key][2]}}
+                </td>
+                <td>
+                  {{ tasks[key][1]}}
+                </td>
+              </tr>
+              {% endfor %}
               </tbody>
             </table>
           </div>
@@ -596,6 +345,8 @@
           req.send();
         }
 
+
+        window.clearInterval(t1);  
         var t1 = setInterval(function(){
         
       
@@ -608,7 +359,7 @@
       if (selected_stock == null){
       var a = 1;
       }else if(week.getAttribute('class') =='btn btn-sm btn-primary btn-simple active'){
-        var URL = "./engine?stock="+selected_stock+'&time='+window.time;
+        let URL = "./engine?stock="+selected_stock+'&time='+window.time;
             
             var req = new XMLHttpRequest();
             req.open('GET',URL,true);
@@ -631,7 +382,7 @@
           
         
       }else if (month.getAttribute('class') =='btn btn-sm btn-primary btn-simple active'){
-        var URL = "./engine2?stock="+selected_stock+'&time='+window.time;
+        let URL = "./engine2?stock="+selected_stock+'&time='+window.time;
             
             var req = new XMLHttpRequest();
             req.open('GET',URL,true);
@@ -653,7 +404,7 @@
       }else if (year.getAttribute('class') =='btn btn-sm btn-primary btn-simple active'){
 
         
-        var URL = "./engine3?stock="+selected_stock+'&time='+window.time;
+        let URL = "./engine3?stock="+selected_stock+'&time='+window.time;
             
             var req = new XMLHttpRequest();
             req.open('GET',URL,true);
@@ -680,10 +431,40 @@
     
     });
 
+
+    
+    
+    var btt = document.getElementById("Fresh");
+
+        btt.addEventListener("click",function(){
+        let URL = "./recomd?time="+window.time;
+        var req = new XMLHttpRequest();
+        req.open('GET',URL,true);
+        req.onload = function() {
+        if (req.status >= 200 && req.status < 400) {
+          console.log(req.responseText);
+          document.getElementById('Recomd_body').innerHTML=req.responseText;
+
+        } else {
+          console.log("We connected to the server, but it returned an error.");
+        }
+        
+      };
+        req.onerror = function() {
+        console.log("Connection error");
+      };
+    
+        req.send();
+
+        });
+
+
       });
     
 
   
 </script>
+
+
     
 {% endblock script %}
