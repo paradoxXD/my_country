@@ -176,7 +176,12 @@ def create_app(test_config=None):
         result = get_Recomd(time)
         return result
 
+    @app.route('/port',methods=['GET','POST'])
+    def port():
+        return render_template('portfolio.html')
+
     return app
+
 
 if __name__ == "__main__":
     
