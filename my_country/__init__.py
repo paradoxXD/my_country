@@ -7,7 +7,7 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask import Flask, render_template, url_for, flash, redirect, session, g, request
 from forms import RegistrationForm, LoginForm
 from flask_bcrypt import Bcrypt
-from model import User, Get_password, already_exist, Time, get_stock_lounge_week, get_stock_lounge_month,get_stock_lounge_year,get_All_Stock,get_Recomd,get_buy,get_sell,money_enough,quantity_enough
+from model import User, Get_password, already_exist, Time, get_stock_lounge_week, get_stock_lounge_month,get_stock_lounge_year,get_All_Stock,get_Recomd,get_buy,get_sell,money_enough,quantity_enough,transac_records
 from datetime import datetime
 
 
@@ -181,6 +181,7 @@ def create_app(test_config=None):
         stock = request.args.get('stock')
         quantity=request.args.get('quantity')
         email=session.get("user")
+
         if money_enough(stock,quantity,email,time)==False:
             flash("You don't have enough money!","danger")
             return "1"
@@ -203,6 +204,11 @@ def create_app(test_config=None):
             flash("Successfully sell! Check them in your asset.","success")
             return "1"
         
+    @app.route('/record',methods=['GET','POST'])
+    def record():  
+        email=session.get("user")
+        result = transac_records(email)
+        return result
 
 
 

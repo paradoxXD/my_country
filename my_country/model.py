@@ -210,6 +210,7 @@ def get_Recomd(time):
             result = cursor.fetchall()
     finally:
             connection.close()
+
     if result == None:
         return None
     else:
@@ -229,7 +230,8 @@ def money_enough(stock,quantity,email,time):
             result = cursor.fetchall()
     finally:
             connection.close()
-    if result== None:
+
+    if bool(result)== False:
         return False
     else:
         return True
@@ -243,7 +245,7 @@ def quantity_enough(stock,quantity,email):
             result = cursor.fetchall()
     finally:
             connection.close()
-    if result== None:
+    if bool(result)==False:
         return False
     else:
         return True
@@ -253,8 +255,8 @@ def quantity_enough(stock,quantity,email):
 def get_buy(time,stock,quantity,email):
     
     connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
-    sql = 'INSERT INTO transaction_recourds(user_id,time,TICKER,price,volume) select user_id ,date, TICKER, PRC,{} FROM users, stockprice where email="{}" and  date="{}" and TICKER="{}";'.format(quantity,email,time,stock)
-    sql0= "update users,transaction_recourds set users.balance= users.balance-transaction_recourds.price*transaction_recourds.volume  where users.email='{}' and transaction_recourds.time='{}' and transaction_recourds.TICKER='{}';".format(email,time,stock)
+    sql = 'INSERT INTO transaction_records(user_id,time,TICKER,price,volume) select user_id ,date, TICKER, PRC,{} FROM users, stockprice where email="{}" and  date="{}" and TICKER="{}";'.format(quantity,email,time,stock)
+    sql0= "update users,transaction_records set users.balance= users.balance-transaction_records.price*transaction_records.volume  where users.email='{}' and transaction_records.time='{}' and transaction_records.TICKER='{}';".format(email,time,stock)
 
     try:
         with connection.cursor() as cursor:
@@ -268,8 +270,8 @@ def get_buy(time,stock,quantity,email):
 
 def get_sell(time,stock,quantity,email):
     connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
-    sql = 'INSERT INTO transaction_recourds(user_id,time,TICKER,price,volume) select user_id,date, TICKER, PRC,-{} FROM users, stockprice where email="{}" and  date="{}" and TICKER="{}";'.format(quantity,email,time,stock)
-    sql0= "update users,transaction_recourds set users.balance= users.balance-transaction_recourds.price*transaction_recourds.volume  where users.email='{}' and transaction_recourds.time='{}' and transaction_recourds.TICKER='{}';".format(email,time,stock)
+    sql = 'INSERT INTO transaction_records(user_id,time,TICKER,price,volume) select user_id,date, TICKER, PRC,-{} FROM users, stockprice where email="{}" and  date="{}" and TICKER="{}";'.format(quantity,email,time,stock)
+    sql0= "update users,transaction_records set users.balance= users.balance-transaction_records.price*transaction_records.volume  where users.email='{}' and transaction_records.time='{}' and transaction_records.TICKER='{}';".format(email,time,stock)
     
     try:
         with connection.cursor() as cursor:
@@ -283,3 +285,21 @@ def get_sell(time,stock,quantity,email):
 
 def transac_records(email):
     connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+    try:
+        with connection.cursor() as cursor:
+
+            sql = "SELECT time,TICKER,price,volume FROM transaction_records natural join users where email='{}';".format(email)
+
+            cursor.execute(sql)
+            result = cursor.fetchall()
+    finally:
+            connection.close()
+    if bool(result) ==False:
+        return None
+    else:
+        my_record=""
+        for i in range(len(result)):
+            my_record+='<tr> <td>'+str(i+1)+"</td><td>"+str(result[i][0])+"</td><td>"+str(result[i][1])+"</td><td>"+str(result[i][2])+"</td><td>"+str(result[i][3])+"</td></tr>"
+    return my_record
+
+
