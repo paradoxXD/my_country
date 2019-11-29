@@ -72,7 +72,7 @@ def create_app(test_config=None):
 
     @app.route('/tables')
     def tables():
-        return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
+        return render_template('tables.html',title='Buy&Sell',time=session.get('time'), user_email=session.get("user"), enable=5)
 
 
     @app.route('/register', methods=['GET','POST'])
@@ -153,7 +153,6 @@ def create_app(test_config=None):
 
         return result
 
-    
     @app.route('/engine3',methods=['GET','POST'])
     def engine3():
         
@@ -184,11 +183,12 @@ def create_app(test_config=None):
         email=session.get("user")
         if money_enough(stock,quantity,email,time)==False:
             flash("You don't have enough money!","danger")
-            return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
+            return redirect(url_for('tables'))
         else:
             get_buy(time,stock,quantity,email)
             flash("Successfully buy! Check them in your asset.","success")
-            return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
+            return redirect(url_for('tables'))
+        return render_template('tables.html',title='Buy&Sell',time=session.get('time'), user_email=session.get("user"), enable=5)
 
     @app.route('/sell',methods=['GET','POST'])
     def sell():  
@@ -198,12 +198,12 @@ def create_app(test_config=None):
         email=session.get("user")
         if quantity_enough(stock,quantity,email)==False:
             flash("You don't have enough stocks!","danger")
-            return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
+            return redirect(url_for('tables'))
         else:
             get_sell(time,stock,quantity,email)
             flash("Successfully sell! Check them in your asset.","success")
-            return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
-        
+            return redirect(url_for('tables'))
+        return render_template('tables.html',title='Buy&Sell',time=session.get('time'), user_email=session.get("user"), enable=5)
         
     @app.route('/port',methods=['GET','POST'])
     def port():
