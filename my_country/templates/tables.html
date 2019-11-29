@@ -17,9 +17,9 @@
         {% endfor %}
       {% endif %}
     {% endwith %}
-</div>
-  <div class="row">
-  
+</div> 
+<div class="row">
+
     <div class="col-md-12">
       <div class="card card-chart">
         <div class="card-header">
@@ -66,7 +66,7 @@
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary" id="transact">Transact</button>
+              <button type="button" class="btn btn-primary" id="transact">Transact</button>
 
               <br>
 
@@ -307,8 +307,7 @@
       req.open('GET',URL,true);
       req.onload = function() {
       if (req.status >= 200 && req.status < 400) {
-        // console.log(req.responseText);
-        // document.getElementById('Transac_body').innerHTML=req.responseText;
+        //document.getElementById('body').innerHTML=req.responseText;
 
       } else {
       console.log("We connected to the server, but it returned an error.");
@@ -330,8 +329,8 @@
       req.open('GET',URL,true);
       req.onload = function() {
       if (req.status >= 200 && req.status < 400) {
-        // console.log(req.responseText);
-        // document.getElementById('Transac_body').innerHTML=req.responseText;
+        
+        //document.getElementById('body').innerHTML=req.responseText;
 
       } else {
       console.log("We connected to the server, but it returned an error.");

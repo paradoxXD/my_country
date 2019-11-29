@@ -188,7 +188,6 @@ def create_app(test_config=None):
             get_buy(time,stock,quantity,email)
             flash("Successfully buy! Check them in your asset.","success")
             return redirect(url_for('tables'))
-        return render_template('tables.html',title='Buy&Sell',time=session.get('time'), user_email=session.get("user"), enable=5)
 
     @app.route('/sell',methods=['GET','POST'])
     def sell():  
@@ -203,7 +202,10 @@ def create_app(test_config=None):
             get_sell(time,stock,quantity,email)
             flash("Successfully sell! Check them in your asset.","success")
             return redirect(url_for('tables'))
-        return render_template('tables.html',title='Buy&Sell',time=session.get('time'), user_email=session.get("user"), enable=5)
+        
+
+
+
         
     @app.route('/port',methods=['GET','POST'])
     def port():
