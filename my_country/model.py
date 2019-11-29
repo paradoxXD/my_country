@@ -218,3 +218,65 @@ def get_Recomd(time):
             myhtml+='<tr><td>'+str(i+1)+'</td><td>'+result[i][0]+'</td><td>'+str(result[i][1])+'</td><td>'+result[i][2]+'</td><td>'+str(result[i][3])+'</td></tr>'
 
     return myhtml
+
+def money_enough(stock,quantity,email,time):
+    
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+    try:
+        with connection.cursor() as cursor:
+            sql="select user_id,balance,PRC from users,stockprice where email='{}' and date='{}' and TICKER='{}' and balance > PRC*{};".format(email,time,stock,quantity)
+            cursor.execute(sql)
+            result = cursor.fetchall()
+    finally:
+            connection.close()
+    if result== None:
+        return False
+    else:
+        return True
+
+def quantity_enough(stock,quantity,email):
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+    try:
+        with connection.cursor() as cursor:
+            sql="SELECT * FROM users natural join store where email='{}' and TICKER='{}' and volume >{};".format(email,stock,quantity)
+            cursor.execute(sql)
+            result = cursor.fetchall()
+    finally:
+            connection.close()
+    if result== None:
+        return False
+    else:
+        return True
+
+
+
+def get_buy(time,stock,quantity,email):
+    
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+    sql = 'INSERT INTO transaction_recourds(user_id,time,TICKER,price,volume) select user_id ,date, TICKER, PRC,{} FROM users, stockprice where email="{}" and  date="{}" and TICKER="{}";'.format(quantity,email,time,stock)
+    sql0= "update users,transaction_recourds set users.balance= users.balance-transaction_recourds.price*transaction_recourds.volume  where users.email='{}' and transaction_recourds.time='{}' and transaction_recourds.TICKER='{}';".format(email,time,stock)
+
+    try:
+        with connection.cursor() as cursor:
+
+            cursor.execute(sql)
+            cursor.execute(sql0)
+        
+            connection.commit()
+    finally:
+        connection.close()
+
+def get_sell(time,stock,quantity,email):
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+    sql = 'INSERT INTO transaction_recourds(user_id,time,TICKER,price,volume) select user_id,date, TICKER, -PRC,{} FROM users, stockprice where email="{}" and  date="{}" and TICKER="{}";'.format(quantity,email,time,stock)
+    sql0= "update users,transaction_recourds set users.balance= users.balance+transaction_recourds.price*transaction_recourds.volume  where users.email='{}' and transaction_recourds.time='{}' and transaction_recourds.TICKER='{}';".format(email,time,stock)
+    
+    try:
+        with connection.cursor() as cursor:
+
+            cursor.execute(sql)
+            cursor.execute(sql0)
+        
+            connection.commit()
+    finally:
+        connection.close()

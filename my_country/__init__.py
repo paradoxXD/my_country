@@ -7,7 +7,7 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask import Flask, render_template, url_for, flash, redirect, session, g, request
 from forms import RegistrationForm, LoginForm
 from flask_bcrypt import Bcrypt
-from model import User, Get_password, already_exist, Time, get_stock_lounge_week, get_stock_lounge_month,get_stock_lounge_year,get_All_Stock,get_Recomd
+from model import User, Get_password, already_exist, Time, get_stock_lounge_week, get_stock_lounge_month,get_stock_lounge_year,get_All_Stock,get_Recomd,get_buy,get_sell,money_enough,quantity_enough
 from datetime import datetime
 
 
@@ -128,14 +128,14 @@ def create_app(test_config=None):
 
     @app.route('/engine',methods=['GET','POST'])
     def engine():
-        
-        stock = request.args.get('stock')
-        
-        time = request.args.get('time')
-        
-        print(stock)
-        print(time)
-        result = get_stock_lounge_week(stock,time)
+        if fun(stock,time,quantity):
+            stock = request.args.get('stock')
+            
+            time = request.args.get('time')
+            
+            print(stock)
+            print(time)
+            result = get_stock_lounge_week(stock,time)
 
 
         return result
@@ -176,7 +176,39 @@ def create_app(test_config=None):
         result = get_Recomd(time)
         return result
 
+
+    @app.route('/buy',methods=['GET','POST'])
+    def buy():  
+        time = request.args.get('time')
+        stock = request.args.get('stock')
+        quantity=request.args.get('quantity')
+        email=session.get("user")
+        if money_enough(stock,quantity,email,time)==False:
+            flash("You don't have enough money!","danger")
+            return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
+        else:
+            result = get_buy(time,stock,quantity,email)
+            flash("Successfully buy! Check them in your asset.","success")
+            return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
+
+    @app.route('/sell',methods=['GET','POST'])
+    def sell():  
+        time = request.args.get('time')
+        stock = request.args.get('stock')
+        quantity=request.args.get('quantity')
+        email=session.get("user")
+        if quantity_enough(stock,quantity,email)==False:
+            flash("You don't have enough stocks!","danger")
+        else:
+            result = get_sell(time,stock,quantity,email)
+            flash("Successfully sell! Check them in your asset.","success")
+        return result
+
     return app
+
+
+
+
 
 if __name__ == "__main__":
     

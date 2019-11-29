@@ -3,6 +3,21 @@
 
 {% block content %}
 <div class="content">
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-info alert-with-icon" data-notify="container">
+                <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                  <i class="tim-icons icon-simple-remove"></i>
+                </button>
+                <span data-notify="icon" class="tim-icons icon-bell-55"></span>
+                <span data-notify="message">{{  message  }}</span>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+    </div> 
   <div class="row">
   
     <div class="col-md-12">
@@ -14,14 +29,14 @@
             </div>
             <div class="col-sm-6">
               <div class="btn-group btn-group-toggle btn-group-md float-right" data-toggle="buttons">
-                <label class="btn btn-sm btn-primary btn-simple active" id="0">
+                <label class="btn btn-sm btn-primary btn-simple active" id="B">
                   <input type="radio" name="options" checked>
                   <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Buy In</span>
                   <span class="d-block d-sm-none">
                     <i class="tim-icons icon-single-02"></i>
                   </span>
                 </label>
-                <label class="btn btn-sm btn-primary btn-simple" id="1">
+                <label class="btn btn-sm btn-primary btn-simple active" id="S">
                   <input type="radio" class="d-none d-sm-none" name="options">
                   <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Sell Out</span>
                   <span class="d-block d-sm-none">
@@ -39,19 +54,19 @@
               <div class="row">
                 <div class="col-md-6 pr-md-1">
                   <div class="form-group">
-                    <label>Stock No.</label>
-                    <input type="text" class="form-control" placeholder="Stock No.">
+                    
+                    <input type="text" class="form-control" placeholder="Stock No." id="stockNo">
                   </div>
                 </div>
                 <div class="col-md-6 pl-md-1">
                   <div class="form-group">
-                    <label>Quantity</label>
-                    <input type="text" class="form-control" placeholder="Quantity">
+                    
+                    <input type="text" class="form-control" placeholder="Quantity" id="quantity">
                   </div>
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary">Buy In</button>
+              <button type="submit" class="btn btn-primary" id="transact">Transact</button>
 
               <br>
 
@@ -100,121 +115,28 @@
               <thead class=" text-primary">
                 <tr>
                   <th>
+                    User ID
+                  </th>
+                  <th>
                     No.
                   </th>
                   <th>
-                    Stock Name
+                    Transaction Time
                   </th>
                   <th>
-                    Stock Code
+                    Ticker
                   </th>
                   <th>
-                    Unit Price
+                    Price
                   </th>
                   <th>
-                    Shares
+                    Volumn
                   </th>
-                  <th>
-                    Total Price
-                  </th>
-                  <th>
-                    Trading Hour
-                  </th>
+                  
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    1
-                  </td>
-                  <td>
-                    Apple
-                  </td>
-                  <td>
-                    10001
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    100
-                  </td>
-                  <td>
-                    $10000
-                  </td>
-                  <td>
-                    2019-11-11 00:00:01
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    2
-                  </td>
-                  <td>
-                    Banana
-                  </td>
-                  <td>
-                    10010
-                  </td>
-                  <td>
-                    $150
-                  </td>
-                  <td>
-                    200
-                  </td>
-                  <td>
-                    $30000
-                  </td>
-                  <td>
-                    2019-11-11 00:01:03
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    3
-                  </td>
-                  <td>
-                    Cats
-                  </td>
-                  <td>
-                    10030
-                  </td>
-                  <td>
-                    $200
-                  </td>
-                  <td>
-                    100
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                  <td>
-                    2019-11-11 00:03:23
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    4
-                  </td>
-                  <td>
-                    Dogs
-                  </td>
-                  <td>
-                    10050
-                  </td>
-                  <td>
-                    $120
-                  </td>
-                  <td>
-                    200
-                  </td>
-                  <td>
-                    $24000
-                  </td>
-                  <td>
-                    2019-11-11 00:06:47
-                  </td>
-                </tr>
+              <tbody id="Transac_body">
+
               </tbody>
             </table>
           </div>
@@ -222,7 +144,7 @@
             <div class="btn-group btn-group-toggle btn-group-xl float-right" data-toggle="buttons">
               <label class="btn btn-xl btn-primary btn-simple active" id="0">
                 <input type="radio" name="options" checked>
-                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Fresh</span>
+                <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block" id="transac">Fresh</span>
                 <span class="d-block d-sm-none">
                   <i class="tim-icons icon-single-02"></i>
                 </span>
@@ -437,6 +359,79 @@
   });
 
   
+</script>
+
+<script>
+// trigger events
+
+  // hit enter to trigger click
+  var input = document.getElementById("StockNo");
+  input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+  event.preventDefault();
+  document.getElementById("buy").click();
+  }
+});
+</script>
+
+<script>
+
+  var transac = document.getElementById("transact");
+
+  transac.addEventListener("click",function(){
+    var buyin = document.getElementById('B');
+    var sellout = document.getElementById('S');
+    if (buyin.getAttribute('class') =="btn btn-sm btn-primary btn-simple active"){
+      var stock = document.getElementById("stockNo").value;
+      var quantity = document.getElementById("quantity").value;
+
+      let URL = "./buy?time="+window.time+"&stock="+stock+"&quantity="+quantity;
+      var req = new XMLHttpRequest();
+      req.open('GET',URL,true);
+      req.onload = function() {
+      if (req.status >= 200 && req.status < 400) {
+        console.log(req.responseText);
+        document.getElementById('Transac_body').innerHTML=req.responseText;
+
+      } else {
+      console.log("We connected to the server, but it returned an error.");
+      }
+
+      };
+      req.onerror = function() {
+      console.log("Connection error");
+      };
+
+      req.send();
+
+      }
+
+
+    else if(sellout.getAttribute('class') =="btn btn-sm btn-primary btn-simple active"){
+      var stock = document.getElementById("stockNo").value;
+      var quantity = document.getElementById("quantity").value;
+
+      let URL = "./sell?time="+window.time+"&stock="+stock+"&quantity="+quantity;
+      var req = new XMLHttpRequest();
+      req.open('GET',URL,true);
+      req.onload = function() {
+      if (req.status >= 200 && req.status < 400) {
+        console.log(req.responseText);
+        document.getElementById('Transac_body').innerHTML=req.responseText;
+
+      } else {
+      console.log("We connected to the server, but it returned an error.");
+      }
+
+      };
+      req.onerror = function() {
+      console.log("Connection error");
+      };
+
+      req.send();
+
+      };
+  });
 </script>
     
 {% endblock script %}
