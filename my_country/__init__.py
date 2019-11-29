@@ -199,10 +199,18 @@ def create_app(test_config=None):
         email=session.get("user")
         if quantity_enough(stock,quantity,email)==False:
             flash("You don't have enough stocks!","danger")
+            return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
         else:
             result = get_sell(time,stock,quantity,email)
             flash("Successfully sell! Check them in your asset.","success")
+            return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
+    
+    @app.route('/record',methods=['GET','POST'])
+    def record():
+        email=session.get("user")
+        result=get_record(email)
         return result
+    
     @app.route('/port',methods=['GET','POST'])
     def port():
         return render_template('portfolio.html')

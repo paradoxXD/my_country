@@ -268,8 +268,8 @@ def get_buy(time,stock,quantity,email):
 
 def get_sell(time,stock,quantity,email):
     connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
-    sql = 'INSERT INTO transaction_recourds(user_id,time,TICKER,price,volume) select user_id,date, TICKER, -PRC,{} FROM users, stockprice where email="{}" and  date="{}" and TICKER="{}";'.format(quantity,email,time,stock)
-    sql0= "update users,transaction_recourds set users.balance= users.balance+transaction_recourds.price*transaction_recourds.volume  where users.email='{}' and transaction_recourds.time='{}' and transaction_recourds.TICKER='{}';".format(email,time,stock)
+    sql = 'INSERT INTO transaction_recourds(user_id,time,TICKER,price,volume) select user_id,date, TICKER, PRC,-{} FROM users, stockprice where email="{}" and  date="{}" and TICKER="{}";'.format(quantity,email,time,stock)
+    sql0= "update users,transaction_recourds set users.balance= users.balance-transaction_recourds.price*transaction_recourds.volume  where users.email='{}' and transaction_recourds.time='{}' and transaction_recourds.TICKER='{}';".format(email,time,stock)
     
     try:
         with connection.cursor() as cursor:
@@ -280,3 +280,6 @@ def get_sell(time,stock,quantity,email):
             connection.commit()
     finally:
         connection.close()
+
+def transac_records(email):
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
