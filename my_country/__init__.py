@@ -128,14 +128,13 @@ def create_app(test_config=None):
 
     @app.route('/engine',methods=['GET','POST'])
     def engine():
-        if fun(stock,time,quantity):
-            stock = request.args.get('stock')
-            
-            time = request.args.get('time')
-            
-            print(stock)
-            print(time)
-            result = get_stock_lounge_week(stock,time)
+        
+        stock = request.args.get('stock')
+        time = request.args.get('time')
+        
+        print(stock)
+        print(time)
+        result = get_stock_lounge_week(stock,time)
 
 
         return result
@@ -187,7 +186,7 @@ def create_app(test_config=None):
             flash("You don't have enough money!","danger")
             return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
         else:
-            result = get_buy(time,stock,quantity,email)
+            get_buy(time,stock,quantity,email)
             flash("Successfully buy! Check them in your asset.","success")
             return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
 
@@ -199,10 +198,13 @@ def create_app(test_config=None):
         email=session.get("user")
         if quantity_enough(stock,quantity,email)==False:
             flash("You don't have enough stocks!","danger")
+            return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
         else:
-            result = get_sell(time,stock,quantity,email)
+            get_sell(time,stock,quantity,email)
             flash("Successfully sell! Check them in your asset.","success")
-        return result
+            return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
+        
+        
     @app.route('/port',methods=['GET','POST'])
     def port():
         return render_template('portfolio.html')
