@@ -203,6 +203,9 @@ def create_app(test_config=None):
             result = get_sell(time,stock,quantity,email)
             flash("Successfully sell! Check them in your asset.","success")
         return result
+    @app.route('/port',methods=['GET','POST'])
+    def port():
+        return render_template('portfolio.html')
 
     return app
 

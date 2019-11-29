@@ -312,6 +312,10 @@
 
 
   $(document).ready(function() {
+
+    function reduce_to_cent(item,index,arr){
+      arr[index] = Math.round(item*100)/100;
+    };
     
     var obj = new test.initlounge([0,0,0,0,0,0,0],['2000-01-01','2000-01-2','2000-01-03','2000-01-04','2000-01-05','2000-01-06','2000-01-07']);
     var selected_stock;
@@ -331,8 +335,9 @@
             var ourData = JSON.parse(req.responseText);
             // var result = document.getElementById('lounge_body').innerHTML;
             // result = "<td>1</td>"
-            
-            obj.update_data(ourData.price,ourData.date)
+            let price = ourData.price;
+            price.forEach(reduce_to_cent);
+            obj.update_data(ourData.price,ourData.date);
           } else {
             console.log("We connected to the server, but it returned an error.");
           }
@@ -361,14 +366,17 @@
       }else if(week.getAttribute('class') =='btn btn-sm btn-primary btn-simple active'){
         let URL = "./engine?stock="+selected_stock+'&time='+window.time;
             
-            var req = new XMLHttpRequest();
+            let req = new XMLHttpRequest();
             req.open('GET',URL,true);
             req.onload = function() {
             if (req.status >= 200 && req.status < 400) {
               var ourData = JSON.parse(req.responseText);
+              let price = ourData.price;
+              price.forEach(reduce_to_cent);
+              console.log(price);
               obj.update_point_size(4);
-              obj.update_data(ourData.price,ourData.date)
-              console.log(ourData.price)
+              obj.update_data(ourData.price,ourData.date);
+              
             } else {
               console.log("We connected to the server, but it returned an error.");
             }
@@ -384,12 +392,14 @@
       }else if (month.getAttribute('class') =='btn btn-sm btn-primary btn-simple active'){
         let URL = "./engine2?stock="+selected_stock+'&time='+window.time;
             
-            var req = new XMLHttpRequest();
+            let req = new XMLHttpRequest();
             req.open('GET',URL,true);
             req.onload = function() {
             if (req.status >= 200 && req.status < 400) {
               var ourData = JSON.parse(req.responseText);
               obj.update_point_size(4);
+              let price = ourData.price
+              price.forEach(reduce_to_cent);
               obj.update_data(ourData.price,ourData.date)
             } else {
               console.log("We connected to the server, but it returned an error.");
@@ -406,11 +416,13 @@
         
         let URL = "./engine3?stock="+selected_stock+'&time='+window.time;
             
-            var req = new XMLHttpRequest();
+            let req = new XMLHttpRequest();
             req.open('GET',URL,true);
             req.onload = function() {
             if (req.status >= 200 && req.status < 400) {
               var ourData = JSON.parse(req.responseText);
+              let price = ourData.price;
+              price.forEach(reduce_to_cent);
               obj.update_point_size(1);
               obj.update_data(ourData.price,ourData.date);
             } else {
@@ -438,7 +450,7 @@
 
         btt.addEventListener("click",function(){
         let URL = "./recomd?time="+window.time;
-        var req = new XMLHttpRequest();
+        let req = new XMLHttpRequest();
         req.open('GET',URL,true);
         req.onload = function() {
         if (req.status >= 200 && req.status < 400) {
