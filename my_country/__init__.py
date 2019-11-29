@@ -183,11 +183,11 @@ def create_app(test_config=None):
         email=session.get("user")
         if money_enough(stock,quantity,email,time)==False:
             flash("You don't have enough money!","danger")
-            return redirect(url_for('tables'))
+            return "1"
         else:
             get_buy(time,stock,quantity,email)
             flash("Successfully buy! Check them in your asset.","success")
-            return redirect(url_for('tables'))
+            return "1"
 
     @app.route('/sell',methods=['GET','POST'])
     def sell():  
@@ -197,11 +197,11 @@ def create_app(test_config=None):
         email=session.get("user")
         if quantity_enough(stock,quantity,email)==False:
             flash("You don't have enough stocks!","danger")
-            return redirect(url_for('tables'))
+            return "1"
         else:
             get_sell(time,stock,quantity,email)
             flash("Successfully sell! Check them in your asset.","success")
-            return redirect(url_for('tables'))
+            return "1"
         
 
 

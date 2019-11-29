@@ -308,7 +308,7 @@
       req.onload = function() {
       if (req.status >= 200 && req.status < 400) {
         //document.getElementById('body').innerHTML=req.responseText;
-
+        window.location.href = "./tables";
       } else {
       console.log("We connected to the server, but it returned an error.");
       }
@@ -329,7 +329,7 @@
       req.open('GET',URL,true);
       req.onload = function() {
       if (req.status >= 200 && req.status < 400) {
-        
+        window.location.href = "./tables";
         //document.getElementById('body').innerHTML=req.responseText;
 
       } else {
