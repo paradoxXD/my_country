@@ -1,52 +1,50 @@
-
 {% extends "base.html" %}
 
 {% block content %}
 <div class="content">
-  <div class="container">
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          {% for category, message in messages %}
-            <div class="alert alert-info alert-with-icon" data-notify="container">
-              <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
-                <i class="tim-icons icon-simple-remove"></i>
-              </button>
-              <span data-notify="icon" class="tim-icons icon-bell-55"></span>
-              <span data-notify="message">{{  message  }}</span>
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-  </div>
-  <div class="row"> 
-
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-info alert-with-icon" data-notify="container">
+                <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                  <i class="tim-icons icon-simple-remove"></i>
+                </button>
+                <span data-notify="icon" class="tim-icons icon-bell-55"></span>
+                <span data-notify="message">{{  message  }}</span>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+    </div>
+  <div class="row">
     <div class="col-12">
-      <div class="card card-chart" >
+      <div class="card card-chart">
         <div class="card-header ">
           <div class="row">
             <div class="col-sm-6 text-left">
-              <h5 class="card-category">Your Stock</h5>
+              <h5 class="card-category">Total Shipments</h5>
               <h2 class="card-title">Performance</h2>
             </div>
             <div class="col-sm-6">
               <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
-                <label class="btn btn-sm btn-primary btn-simple active" id="3">
+                <label class="btn btn-sm btn-primary btn-simple active" id="0">
                   <input type="radio" name="options" checked>
-                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Week</span>
+                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Accounts</span>
                   <span class="d-block d-sm-none">
                     <i class="tim-icons icon-single-02"></i>
                   </span>
                 </label>
-                <label class="btn btn-sm btn-primary btn-simple" id="4">
+                <label class="btn btn-sm btn-primary btn-simple" id="1">
                   <input type="radio" class="d-none d-sm-none" name="options">
-                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Month</span>
+                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Purchases</span>
                   <span class="d-block d-sm-none">
                     <i class="tim-icons icon-gift-2"></i>
                   </span>
                 </label>
-                <label class="btn btn-sm btn-primary btn-simple" id="5">
+                <label class="btn btn-sm btn-primary btn-simple" id="2">
                   <input type="radio" class="d-none" name="options">
-                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Year</span>
+                  <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Sessions</span>
                   <span class="d-block d-sm-none">
                     <i class="tim-icons icon-tap-02"></i>
                   </span>
@@ -57,213 +55,349 @@
         </div>
         <div class="card-body">
           <div class="chart-area">
-            <canvas id="chartBig2"></canvas>
+            <canvas id="chartBig1"></canvas>
           </div>
         </div>
       </div>
-    </div>    
-
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-category">Total Shipments</h5>
+          <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
+        </div>
+        <div class="card-body">
+          <div class="chart-area">
+            <canvas id="chartLinePurple"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-category">Daily Sales</h5>
+          <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i> 3,500€</h3>
+        </div>
+        <div class="card-body">
+          <div class="chart-area">
+            <canvas id="CountryChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-category">Completed Tasks</h5>
+          <h3 class="card-title"><i class="tim-icons icon-send text-success"></i> 12,100K</h3>
+        </div>
+        <div class="card-body">
+          <div class="chart-area">
+            <canvas id="chartLineGreen"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-md-12">
+      <div class="card card-tasks">
+        <div class="card-header ">
+          <h6 class="title d-inline">Tasks(5)</h6>
+          <p class="card-category d-inline">today</p>
+          <div class="dropdown">
+            <button type="button" class="btn btn-link dropdown-toggle btn-icon" data-toggle="dropdown">
+              <i class="tim-icons icon-settings-gear-63"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="#pablo">Action</a>
+              <a class="dropdown-item" href="#pablo">Another action</a>
+              <a class="dropdown-item" href="#pablo">Something else</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body ">
+          <div class="table-full-width table-responsive">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="">
+                        <span class="form-check-sign">
+                          <span class="check"></span>
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="title">Update the Documentation</p>
+                    <p class="text-muted">Dwuamish Head, Seattle, WA 8:47 AM</p>
+                  </td>
+                  <td class="td-actions text-right">
+                    <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                      <i class="tim-icons icon-pencil"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="" checked="">
+                        <span class="form-check-sign">
+                          <span class="check"></span>
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="title">GDPR Compliance</p>
+                    <p class="text-muted">The GDPR is a regulation that requires businesses to protect the personal data and privacy of Europe citizens for transactions that occur within EU member states.</p>
+                  </td>
+                  <td class="td-actions text-right">
+                    <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                      <i class="tim-icons icon-pencil"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="">
+                        <span class="form-check-sign">
+                          <span class="check"></span>
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="title">Solve the issues</p>
+                    <p class="text-muted">Fifty percent of all respondents said they would be more likely to shop at a company </p>
+                  </td>
+                  <td class="td-actions text-right">
+                    <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                      <i class="tim-icons icon-pencil"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="">
+                        <span class="form-check-sign">
+                          <span class="check"></span>
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="title">Release v2.0.0</p>
+                    <p class="text-muted">Ra Ave SW, Seattle, WA 98116, SUA 11:19 AM</p>
+                  </td>
+                  <td class="td-actions text-right">
+                    <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                      <i class="tim-icons icon-pencil"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="">
+                        <span class="form-check-sign">
+                          <span class="check"></span>
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="title">Export the processed files</p>
+                    <p class="text-muted">The report also shows that consumers will not easily forgive a company once a breach exposing their personal data occurs. </p>
+                  </td>
+                  <td class="td-actions text-right">
+                    <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                      <i class="tim-icons icon-pencil"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="">
+                        <span class="form-check-sign">
+                          <span class="check"></span>
+                        </span>
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <p class="title">Arival at export process</p>
+                    <p class="text-muted">Capitol Hill, Seattle, WA 12:34 AM</p>
+                  </td>
+                  <td class="td-actions text-right">
+                    <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                      <i class="tim-icons icon-pencil"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+      <div class="card ">
+        <div class="card-header">
+          <h4 class="card-title"> Simple Table</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table tablesorter " id="">
+              <thead class=" text-primary">
+                <tr>
+                  <th>
+                    Name
+                  </th>
+                  <th>
+                    Country
+                  </th>
+                  <th>
+                    City
+                  </th>
+                  <th class="text-center">
+                    Salary
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Dakota Rice
+                  </td>
+                  <td>
+                    Niger
+                  </td>
+                  <td>
+                    Oud-Turnhout
+                  </td>
+                  <td class="text-center">
+                    $36,738
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Minerva Hooper
+                  </td>
+                  <td>
+                    Curaçao
+                  </td>
+                  <td>
+                    Sinaai-Waas
+                  </td>
+                  <td class="text-center">
+                    $23,789
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Sage Rodriguez
+                  </td>
+                  <td>
+                    Netherlands
+                  </td>
+                  <td>
+                    Baileux
+                  </td>
+                  <td class="text-center">
+                    $56,142
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Philip Chaney
+                  </td>
+                  <td>
+                    Korea, South
+                  </td>
+                  <td>
+                    Overland Park
+                  </td>
+                  <td class="text-center">
+                    $38,735
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Doris Greene
+                  </td>
+                  <td>
+                    Malawi
+                  </td>
+                  <td>
+                    Feldkirchen in Kärnten
+                  </td>
+                  <td class="text-center">
+                    $63,542
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Mason Porter
+                  </td>
+                  <td>
+                    Chile
+                  </td>
+                  <td>
+                    Gloucester
+                  </td>
+                  <td class="text-center">
+                    $78,615
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Jon Porter
+                  </td>
+                  <td>
+                    Portugal
+                  </td>
+                  <td>
+                    Gloucester
+                  </td>
+                  <td class="text-center">
+                    $98,615
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
-
 {% endblock content %}
 
+
+
 {% block script %}
-<!-- the autofill -->
-<script>
-    function autocomplete(inp, arr) {
-      /*the autocomplete function takes two arguments,
-      the text field element and an array of possible autocompleted values:*/
-      var currentFocus;
-      /*execute a function when someone writes in the text field:*/
-      inp.addEventListener("input", function(e) {
-          var a, b, i, val = this.value;
-          /*close any already open lists of autocompleted values*/
-          closeAllLists();
-          if (!val) { return false;}
-          currentFocus = -1;
-          /*create a DIV element that will contain the items (values):*/
-          a = document.createElement("DIV");
-          a.setAttribute("id", this.id + "autocomplete-list");
-          a.setAttribute("class", "autocomplete-items");
-          /*append the DIV element as a child of the autocomplete container:*/
-          this.parentNode.appendChild(a);
-          /*for each item in the array...*/
-          for (i = 0; i < arr.length; i++) {
-            /*check if the item starts with the same letters as the text field value:*/
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-              /*create a DIV element for each matching element:*/
-              b = document.createElement("DIV");
-              /*make the matching letters bold:*/
-              b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-              b.innerHTML += arr[i].substr(val.length);
-              /*insert a input field that will hold the current array item's value:*/
-              b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-              /*execute a function when someone clicks on the item value (DIV element):*/
-              b.addEventListener("click", function(e) {
-                  /*insert the value for the autocomplete text field:*/
-                  inp.value = this.getElementsByTagName("input")[0].value;
-                  /*close the list of autocompleted values,
-                  (or any other open lists of autocompleted values:*/
-                  closeAllLists();
-              });
-              a.appendChild(b);
-            }
-          }
-      });
-      /*execute a function presses a key on the keyboard:*/
-      inp.addEventListener("keydown", function(e) {
-          var x = document.getElementById(this.id + "autocomplete-list");
-          if (x) x = x.getElementsByTagName("div");
-          if (e.keyCode == 40) {
-            /*If the arrow DOWN key is pressed,
-            increase the currentFocus variable:*/
-            currentFocus++;
-            /*and and make the current item more visible:*/
-            addActive(x);
-          } else if (e.keyCode == 38) { //up
-            /*If the arrow UP key is pressed,
-            decrease the currentFocus variable:*/
-            currentFocus--;
-            /*and and make the current item more visible:*/
-            addActive(x);
-          } else if (e.keyCode == 13) {
-            /*If the ENTER key is pressed, prevent the form from being submitted,*/
-            e.preventDefault();
-            if (currentFocus > -1) {
-              /*and simulate a click on the "active" item:*/
-              if (x) x[currentFocus].click();
-            }
-          }
-      });
-      function addActive(x) {
-        /*a function to classify an item as "active":*/
-        if (!x) return false;
-        /*start by removing the "active" class on all items:*/
-        removeActive(x);
-        if (currentFocus >= x.length) currentFocus = 0;
-        if (currentFocus < 0) currentFocus = (x.length - 1);
-        /*add class "autocomplete-active":*/
-        x[currentFocus].classList.add("autocomplete-active");
-      }
-      function removeActive(x) {
-        /*a function to remove the "active" class from all autocomplete items:*/
-        for (var i = 0; i < x.length; i++) {
-          x[i].classList.remove("autocomplete-active");
-        }
-      }
-      function closeAllLists(elmnt) {
-        /*close all autocomplete lists in the document,
-        except the one passed as an argument:*/
-        var x = document.getElementsByClassName("autocomplete-items");
-        for (var i = 0; i < x.length; i++) {
-          if (elmnt != x[i] && elmnt != inp) {
-            x[i].parentNode.removeChild(x[i]);
-          }
-        }
-      }
-      /*execute a function when someone clicks in the document:*/
-      document.addEventListener("click", function (e) {
-          closeAllLists(e.target);
-      });
-    }
-    
-    /*An array containing all the country names in the world:*/
-    var ticker = ['ORCL', 'MSFT', 'TROW', 'HON', 'T', 'ADM', 'FRC', 'FISV', 'CF', 'PHBK', 'BKNG', 'BNK', 'CERN', 'BFO', 'MEC', 'KO', 'CDN', 'CDNS', 'ED', 'CELG', 'XRAY', 'FAST', 'DTE', 'DD', 'ETN', 'SIVB', 'XOM', 'MGG', 'MGM', 'MXIM', 'WMI', 'WM', 'GD', 'GE', 'LH', 'PBCT', 'GM', 'CHTR', 'AIZ', 'LYB', 'IR', 'FLT', 'IBM', 'NLSN', 'KMI', 'IIN', 'ITT', 'HCA', 'HII', 'KSU', 'MPC', 'FBHS', 'XYL', 'MAY', 'DLPH', 'APTV', 'TRIP', 'PSX', 'FB', 'PNR', 'FANG', 'ABBV', 'NCLH', 'ZTS', 'PEP', 'MO', 'Q', 'IQV', 'P', 'COP', 'PVH', 'CDW', 'NWSA', 'NWS', 'COTY', 'AMGN', 'LIN', 'SLB', 'TWTR', 'ALLE', 'HLT', 'CHV', 'CVX', 'GOOG', 'AAPL', 'AMAT', 'MRKT', 'INFO', 'ANET', 'SYF', 'CFG', 'KEYS', 'MRO', 'VMC', 'CBS', 'KHC', 'PYPL', 'TXN', 'HPE', 'EIX', 'UA', 'FTV', 'G', 'LW', 'FTI', 'HSY', 'KR', 'CVS', 'GIS', 'MHP', 'MHFI', 'SPGI', 'KMB', 'UTX', 'PG', 'SO', 'CAT', 'CL', 'FMC', 'DE', 'BMY', 'WAG', 'WBA', 'BA', 'UAL', 'HI', 'ABT', 'DOW', 'AMR', 'AAL', 'LMT', 'W', 'MWV', 'WRK', 'NEM', 'CAH', 'IP', 'PE', 'EXC', 'REI', 'CNP', 'PFE', 'EMR', 'JNJ', 'GLW', 'PPG', 'PPL', 'MMM', 'MRK', 'MOT', 'MSI', 'FE', 'CMS', 'CHD', 'CINF', 'WEC', 'AWK', 'TXT', 'CTAS', 'PEG', 'HAL', 'NSP', 'XEL', 'ETR', 'WR', 'EVRG', 'AEP', 'FPL', 'NEE', 'AA', 'ARNC', 'NOC', 'RTN', 'AEE', 'CMA', 'OKE', 'CPB', 'WHR', 'F', 'DOV', 'DAL', 'ADP', 'CEFT', 'CE', 'DIS', 'SNS', 'BH', 'LTR', 'L', 'K', 'VAR', 'HWP', 'HPQ', 'BAX', 'DUK', 'XRX', 'PNW', 'APD', 'VNO', 'AHC', 'HES', 'ALK', 'DG', 'OMC', 'FLS', 'HP', 'HOC', 'HFC', 'HRL', 'ATO', 'MAS', 'MXM', 'FITB', 'NUE', 'OXY', 'RGBK', 'RF', 'PLL', 'MTB', 'ROL', 'SHW', 'BEN', 'AJG', 'WMB', 'WFC', 'NI', 'APA', 'BDX', 'WY', 'CSC', 'DXC', 'IFF', 'TJX', 'CUM', 'CMI', 'PH', 'HST', 'ABI', 'AIH', 'PSG', 'PKI', 'NX', 'JCI', 'SJM', 'JBHT', 'HBAN', 'SWK', 'MCD', 'VFC', 'NU', 'ES', 'TFX', 'AVY', 'AUD', 'TYC', 'MMC', 'AHAA', 'SWKS', 'CLX', 'GPC', 'HMT', 'KLAC', 'FBF', 'LB', 'CMB', 'JPM', 'FOH', 'LRCX', 'DNB', 'MCO', 'HUM', 'UNP', 'LNC', 'DH', 'TGT', 'HRB', 'BK', 'DHR', 'LEE', 'LLY', 'PIR', 'SYY', 'MKC', 'RHI', 'JEC', 'EFX', 'GWW', 'LEN', 'HAS', 'IPG', 'MU', 'PHM', 'WMT', 'CAG', 'SZ', 'ITW', 'BLL', 'NKE', 'JWN', 'AFL', 'AIF', 'NTRS', 'FRT', 'LUV', 'LNT', 'GPS', 'AXP', 'CB', 'RKY', 'TAP', 'UDR', 'INTC', 'BAC', 'SPC', 'STA', 'TRV', 'MDT', 'SNA', 'PNC', 'PCAR', 'CTL', 'FDX', 'ADI', 'LEG', 'NWL', 'AMD', 'LOW', 'PAYX', 'AOC', 'AON', 'NBL', 'TMO', 'CSX', 'ESV', 'CI', 'LTD', 'NSC', 'PGR', 'PSA', 'CDB', 'STZ', 'D', 'KEY', 'AOS', 'COO', 'BEL', 'VZ', 'SBC', 'USB', 'HD', 'MNS', 'MSCS', 'WDC', 'AIG', 'ITI', 'HCP', 'STI', 'MWD', 'MS', 'NOW', 'MYL', 'RJF', 'HDI', 'HOG', 'C', 'ECL', 'UNM', 'BBT', 'CHP', 'STT', 'SYK', 'BHI', 'BHGE', 'TIF', 'VIA', 'ABMD', 'CCL', 'SCH', 'SCHW', 'AAG', 'GFR', 'PXD', 'FCX', 'BR', 'DRE', 'ACN', 'ADBE', 'IEX', 'SYMC', 'HBI', 'HTH', 'AGN', 'VTR', 'EOG', 'ERTS', 'EA', 'USBC', 'CSCO', 'COG', 'HOLX', 'COL', 'XLNX', 'AZO', 'REGN', 'IDXX', 'AES', 'VRTX', 'IDPH', 'BIIB', 'KIM', 'QCOM', 'PRGO', 'HISS', 'GILD', 'ROP', 'SNPS', 'PLMD', 'FD', 'M', 'MHK', 'BSX', 'KSS', 'DHI', 'SBUX', 'TSN', 'BTM', 'PFG', 'AMCR', 'WPI', 'ACT', 'INTU', 'MCHP', 'ACL', 'ACE', 'CRM', 'ORLY', 'RCL', 'STCO', 'FLIR', 'ALL', 'DFS', 'LNX', 'NXL', 'BWA', 'EQR', 'UHS', 'ATVI', 'IT', 'REG', 'NVR', 'INCY', 'EMN', 'SPG', 'AAP', 'MAA', 'ALB', 'MLM', 'TSCO', 'CPRT', 'AVB', 'MAC', 'PLD', 'ESS', 'AIV', 'O', 'COF', 'MCK', 'DLTR', 'AAS', 'ABC', 'WMIH', 'COOP', 'DRI', 'WAB', 'DISH', 'RMD', 'AVZ', 'IVZ', 'WABC', 'TPR', 'PLI', 'RE', 'TRL', 'DVA', 'CBZ', 'HSIC', 'NTAP', 'MSS', 'MLSS', 'EL', 'WAT', 'CTXS', 'HIG', 'ALXN', 'IRM', 'TCX', 'ANSS', 'EGRP', 'ET', 'ETFC', 'MTON', 'LTBG', 'NOI', 'NOV', 'NRG', 'MWP', 'ZION', 'TMPW', 'MNST', 'MWW', 'DGX', 'ROK', 'CME', 'CMT', 'KMX', 'TTWO', 'ARE', 'APH', 'GL', 'AMZN', 'RFMD', 'QRVO', 'BXP', 'RL', 'AME', 'SLG', 'VLO', 'AVGP', 'YUM', 'CHRW', 'AMB', 'AMG', 'MTD', 'ADSK', 'URI', 'VRSN', 'PWR', 'MAR', 'BBY', 'SEE', 'AMT', 'SRE', 'CTSH', 'RSG', 'TWRS', 'CCI', 'EBAY', 'FOX', 'NVDA', 'PCLN', 'GS', 'FFIV', 'CNC', 'JNPR', 'SBAC', 'COST', 'DVN', 'BLK', 'WCG', 'AKAM', 'EXPE', 'A', 'UPS', 'PKG', 'EW', 'EXPD', 'MET', 'HANS', 'ISRG', 'ILMN', 'EQIX', 'V', 'AVGO', 'COH', 'JKHY', 'IDX', 'IDNX', 'GRMN', 'ALGN', 'GPN', 'ADS', 'CEY', 'FIS', 'KFT', 'MDLZ', 'WSH', 'WLTW', 'ZMH', 'ZBH', 'LMC', 'ATH', 'WLP', 'ANTM', 'PRU', 'CNTE', 'NFLX', 'XEC', 'WYNN', 'STX', 'LKQX', 'LKQ', 'CBG', 'CBRE', 'EXR', 'DLR', 'MOS', 'FOXA', 'MKTX', 'LVS', 'NDAQ', 'AMP', 'UARM', 'UAA', 'ICE', 'VIAB', 'CMG', 'UAUA', 'TDG', 'MA', 'WU', 'SAI', 'LDOS', 'ROST', 'IPGP', 'PCS', 'TMUS', 'TEL', 'CXO', 'ULTA', 'MXB', 'MSCI', 'PM', 'UNH', 'VRSK', 'FTNT', 'CBOE']
-
-    /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-    autocomplete(document.getElementById("stock"), ticker);
-  </script>
-
 
 <script>
-  //   $(document).ready(function(){
-  //     //循环执行，每隔1秒钟执行一次 1000 
-  //     var t1=window.setInterval(refreshCount, 1000);
-  //     function refreshCount() {
-  //       console.log("ready");
-        
-  //     }
-  //     //去掉定时器的方法  
-  //     window.clearInterval(t1);   
-  //  }); 
-  </script>
-
-<script>
-// trigger events
-
-      // hit enter to trigger click
-      var input = document.getElementById("stock");
-      input.addEventListener("keyup", function(event) {
-      if (event.keyCode === 13) {
-      event.preventDefault();
-      document.getElementById("select").click();
-      }
-    });
-
-
-
-    // return the parsed infomation and update
-    var btn = document.getElementById("select");
-    btn.addEventListener("click",function(){
-     
-     var stock = document.getElementById("stock").value;
-     //alert(stock);
-     var URL = "./engine?stock="+stock;
-     //alert(URL);
- 
-     var req = new XMLHttpRequest();
-     req.open('GET',URL,true);
-     req.onload = function() {
-     if (req.status >= 200 && req.status < 400) {
-       var ourData = req.responseText;
-       console.log(ourData);
-       ourData = [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 90]
-      // assume we get the data from engine
-       console.log(ourData);
-     } else {
-       console.log("We connected to the server, but it returned an error.");
-     }
-     
-   };
-     req.onerror = function() {
-     console.log("Connection error");
-   };
- 
-   req.send();
-   });
-
-</script>
-
-<script>
-
-
-
   $(document).ready(function() {
-    
-    var obj = new test.initlounge([10,10,10,10,10,10,10,10,10,10,10,10]);
+    // Javascript method's body can be found in assets/js/demos.js
+    demo.initDashboardPageCharts();
 
-    //var t1=window.setTimeout(obj.update_data([100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 70]), 1000 * 5);
-    //var t2=window.setTimeout("alert('5s')", 5000);
-    
-    var start = Date.now();
-
-    console.log("starting timer...");
-    // expected output: starting timer...
-
-    setInterval(function() {
-      var millis = Date.now() - start;
-      var arr_1 = [10, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 70]
-      arr_1[0] = Math.floor(Math.random() * 100);  
-      arr_1[2] = Math.floor(Math.random() * 100);  
-      obj.update_data(arr_1)
-     
-      // expected output : seconds elapsed = 2
-    }, 1000);
   });
-
-  
 </script>
-    
-{% endblock script %}
+
+{% endblock %}
