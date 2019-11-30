@@ -15,8 +15,8 @@
             <h3>5</h3>
           </div>
           <div class="typography-line">
-              <span style="font-weight:bold;">My Property</span>
-              <h3>$50000</h3>
+              <span style="font-weight:bold;">My Balance</span>
+              <h3 id='balance'></h3>
           </div>
           <div class="typography-line">
               <span style="font-weight:bold;">Yield Rate</span>
@@ -105,3 +105,34 @@
   </div>
 </div>
 {% endblock content %}
+
+{% block script %}
+<script>
+var money = setInterval(function(){
+let URL = "./balance";
+let req = new XMLHttpRequest();
+req.open('GET',URL,true);
+req.onload = function() {
+if (req.status >= 200 && req.status < 400) {
+  console.log(req.responseText);
+  document.getElementById('balance').innerText=req.responseText;
+
+} else {
+  console.log("We connected to the server, but it returned an error.");
+}
+
+};
+req.onerror = function() {
+console.log("Connection error");
+};
+
+req.send();
+
+}, 2000);
+
+
+
+</script>
+
+
+{% endblock script %}

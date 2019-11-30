@@ -306,4 +306,23 @@ def transac_records(email):
             my_record+='<tr> <td>'+str(i+1)+"</td><td>"+str(result[i][0])+"</td><td>"+str(result[i][1])+"</td><td>"+str(result[i][2])+"</td><td>"+str(result[i][3])+"</td></tr>"
     return my_record
 
+def get_balance(email):
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+    try:
+        with connection.cursor() as cursor:
+
+            sql = "SELECT balance FROM users where email='{}';".format(email)
+            
+            cursor.execute(sql)
+            
+            result = cursor.fetchall()
+    finally:
+            connection.close()
+    
+    if result ==False:
+        return None
+    else:
+        return str(result[0][0])
+
+
 
