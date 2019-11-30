@@ -52,6 +52,7 @@ def create_app(test_config=None):
     @app.route('/lounge',methods=['GET', 'POST'])
     def lounge():
         
+        All_Stocks = get_All_Stock()
 
         if request.method == 'POST':
             something = request.form.get('stock')
@@ -59,7 +60,7 @@ def create_app(test_config=None):
             # use something to get data
             # please finish this part
 
-        return render_template('lounge.html', title="lounge",time=session.get('time'), user_email=session.get("user"), enable=2)
+        return render_template('lounge.html', title="lounge",time=session.get('time'), user_email=session.get("user"), enable=2,tasks=All_Stocks)
 
     @app.route('/status')
     def notifications():
@@ -71,7 +72,7 @@ def create_app(test_config=None):
 
     @app.route('/tables')
     def tables():
-        return render_template('tables.html',time=session.get('time'), user_email=session.get("user"), enable=5)
+        return render_template('tables.html',title='Buy&Sell',time=session.get('time'), user_email=session.get("user"), enable=5)
 
 
     @app.route('/register', methods=['GET','POST'])
@@ -129,7 +130,6 @@ def create_app(test_config=None):
     def engine():
         
         stock = request.args.get('stock')
-        
         time = request.args.get('time')
         
         print(stock)
@@ -153,7 +153,6 @@ def create_app(test_config=None):
 
         return result
 
-    
     @app.route('/engine3',methods=['GET','POST'])
     def engine3():
         
@@ -168,8 +167,48 @@ def create_app(test_config=None):
 
         return result
 
-
     
+    @app.route('/recomd',methods=['GET','POST'])
+    def recomd():  
+        time = request.args.get('time')
+        result = get_Recomd(time)
+        return result
+
+
+    @app.route('/buy',methods=['GET','POST'])
+    def buy():  
+        time = request.args.get('time')
+        stock = request.args.get('stock')
+        quantity=request.args.get('quantity')
+        email=session.get("user")
+
+        if money_enough(stock,quantity,email,time)==False:
+            flash("You don't have enough money!","danger")
+            return "1"
+        else:
+            get_buy(time,stock,quantity,email)
+            flash("Successfully buy! Check them in your asset.","success")
+            return "1"
+
+    @app.route('/sell',methods=['GET','POST'])
+    def sell():  
+        time = request.args.get('time')
+        stock = request.args.get('stock')
+        quantity=request.args.get('quantity')
+        email=session.get("user")
+        if quantity_enough(stock,quantity,email)==False:
+            flash("You don't have enough stocks!","danger")
+            return "1"
+        else:
+            get_sell(time,stock,quantity,email)
+            flash("Successfully sell! Check them in your asset.","success")
+            return "1"
+        
+    @app.route('/record',methods=['GET','POST'])
+    def record():  
+        email=session.get("user")
+        result = transac_records(email)
+        return result
 
     @app.route('/balance',methods=['GET','POST'])
     def balance():  
@@ -178,8 +217,15 @@ def create_app(test_config=None):
         return result
 
 
+        
+    @app.route('/port',methods=['GET','POST'])
+    def port():
+        return render_template('portfolio.html')
 
     return app
+
+
+
 
 
 if __name__ == "__main__":
