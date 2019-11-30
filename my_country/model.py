@@ -240,7 +240,7 @@ def quantity_enough(stock,quantity,email):
     connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
     try:
         with connection.cursor() as cursor:
-            sql="SELECT * FROM users natural join store where email='{}' and TICKER='{}' and volume >{};".format(email,stock,quantity)
+            sql="SELECT user_id,email,TICKER,sum(volume) FROM users natural join store group by user_id,TICKER having  email='{}' and TICKER='{}' and sum(volume) >{};".format(email,stock,quantity)
             cursor.execute(sql)
             result = cursor.fetchall()
     finally:
@@ -256,14 +256,15 @@ def get_buy(time,stock,quantity,email):
     
     connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
     sql = 'INSERT INTO transaction_records(user_id,time,TICKER,price,volume) select user_id ,date, TICKER, PRC,{} FROM users, stockprice where email="{}" and  date="{}" and TICKER="{}";'.format(quantity,email,time,stock)
-    sql0= "update users,transaction_records set users.balance= users.balance-transaction_records.price*transaction_records.volume  where users.email='{}' and transaction_records.time='{}' and transaction_records.TICKER='{}';".format(email,time,stock)
-
+    sql0= "update users natural join transaction_records set users.balance= users.balance-transaction_records.price*transaction_records.volume  where users.email='{}' and transaction_records.time='{}' and transaction_records.TICKER='{}';".format(email,time,stock)
+    sql1='insert into store(user_id,TICKER,volume) select user_id,TICKER, {} FROM users, stockprice where email="{}" and  date="{}" and TICKER="{}";'.format(quantity,email,time,stock)
+    
     try:
         with connection.cursor() as cursor:
 
             cursor.execute(sql)
             cursor.execute(sql0)
-        
+            cursor.execute(sql1)
             connection.commit()
     finally:
         connection.close()
@@ -271,14 +272,15 @@ def get_buy(time,stock,quantity,email):
 def get_sell(time,stock,quantity,email):
     connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
     sql = 'INSERT INTO transaction_records(user_id,time,TICKER,price,volume) select user_id,date, TICKER, PRC,-{} FROM users, stockprice where email="{}" and  date="{}" and TICKER="{}";'.format(quantity,email,time,stock)
-    sql0= "update users,transaction_records set users.balance= users.balance-transaction_records.price*transaction_records.volume  where users.email='{}' and transaction_records.time='{}' and transaction_records.TICKER='{}';".format(email,time,stock)
-    
+    sql0= "update users natural join transaction_records set users.balance= users.balance-transaction_records.price*transaction_records.volume  where users.email='{}' and transaction_records.time='{}' and transaction_records.TICKER='{}';".format(email,time,stock)
+    sql1='insert into store(user_id,TICKER,volume) select user_id,TICKER, -{} FROM users, stockprice where email="{}" and  date="{}" and TICKER="{}";'.format(quantity,email,time,stock)
     try:
         with connection.cursor() as cursor:
 
             cursor.execute(sql)
-            cursor.execute(sql0)
-        
+            cursor.execute(sql0)            
+            cursor.execute(sql1)
+
             connection.commit()
     finally:
         connection.close()
@@ -289,11 +291,13 @@ def transac_records(email):
         with connection.cursor() as cursor:
 
             sql = "SELECT time,TICKER,price,volume FROM transaction_records natural join users where email='{}';".format(email)
-
+            
             cursor.execute(sql)
+            
             result = cursor.fetchall()
     finally:
             connection.close()
+    
     if bool(result) ==False:
         return None
     else:
