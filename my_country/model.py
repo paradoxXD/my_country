@@ -240,7 +240,7 @@ def quantity_enough(stock,quantity,email):
     connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
     try:
         with connection.cursor() as cursor:
-            sql="SELECT user_id,email,TICKER,sum(volume) FROM users natural join store group by user_id,TICKER having  email='{}' and TICKER='{}' and sum(volume) >{};".format(email,stock,quantity)
+            sql="SELECT user_id,email,TICKER,sum(volume) FROM users natural join store group by user_id,TICKER having  email='{}' and TICKER='{}' and sum(volume) >={};".format(email,stock,quantity)
             cursor.execute(sql)
             result = cursor.fetchall()
     finally:
