@@ -183,7 +183,7 @@ def get_All_Stock():
     try:
         with connection.cursor() as cursor:
 
-            sql = "select TICKER, COMNAM, PERMNO from company_stock natural join CPSP_ticker;"
+            sql = "select TICKER, COMNAM, PERMNO, words from company_stock natural join CPSP_ticker natural join feature;"
             cursor.execute(sql)
             result = cursor.fetchall()
     finally:
@@ -195,7 +195,7 @@ def get_All_Stock():
         mylist=dict()
         count=1
         for row in result:
-            mylist[count]=[row[0],row[1],row[2]]
+            mylist[count]=[row[0],row[1],row[2],row[3]]
             count+=1
     return mylist
 
@@ -205,7 +205,7 @@ def get_Recomd(time):
     try:
         with connection.cursor() as cursor:
 
-            sql = "select A.TICKER, PERMNO, concat(round(10*(A.PRC-B.PRC)/A.PRC,4),'%'), A.PRC from stockprice as A, stockprice as B natural join CPSP_ticker where A.date='{}' and B.date=if(A.date like '2000-01%', '2000-01-03', DATE_SUB(A.date, INTERVAL 30 DAY)) and A.TICKER=B.TICKER order by (A.PRC-B.PRC)/A.PRC desc limit 10;".format(time)
+            sql = "select A.TICKER, PERMNO, concat(round(10*(A.PRC-B.PRC)/B.PRC,4),'%'), A.PRC from stockprice as A, stockprice as B natural join CPSP_ticker where A.date='{}' and B.date=if(A.date like '2000-01%', '2000-01-03', DATE_SUB(A.date, INTERVAL 30 DAY)) and A.TICKER=B.TICKER order by (A.PRC-B.PRC)/A.PRC desc limit 10;".format(time)
             cursor.execute(sql)
             result = cursor.fetchall()
     finally:
@@ -219,6 +219,8 @@ def get_Recomd(time):
             myhtml+='<tr><td>'+str(i+1)+'</td><td>'+result[i][0]+'</td><td>'+str(result[i][1])+'</td><td>'+result[i][2]+'</td><td>'+str(result[i][3])+'</td></tr>'
 
     return myhtml
+
+print(get_Recomd('2011-02-03'))
 
 def money_enough(stock,quantity,email,time):
     

@@ -102,6 +102,9 @@
                   <th>
                     Company name
                   </th>
+                  <th>
+                    Description
+                  </th>
                 </tr>
               </thead>
               <tbody id='lounge_body'>
@@ -118,6 +121,9 @@
                 </td>
                 <td>
                   {{ tasks[key][1]}}
+                </td>
+                <td>
+                  {{ tasks[key][3]}}
                 </td>
               </tr>
               {% endfor %}
