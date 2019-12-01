@@ -359,8 +359,13 @@ def get_portfolio_list(email,time):
         return None
     else:
         myhtml=''
+        count=1
         for i in range(len(result)):
-            myhtml+='<tr><td>'+str(i+1)+'</td><td>'+result[i][0]+'</td><td>'+str(result[i][1])+'</td><td>'+str(result[i][2])+'</td><td>'+str(result[i][3])+'</td></tr>'
+            if result[i][1]==0:
+                continue
+            else:
+                myhtml+='<tr><td>'+str(count)+'</td><td>'+result[i][0]+'</td><td>'+str(result[i][1])+'</td><td>'+str(result[i][2])+'</td><td>'+str(result[i][3])+'</td></tr>'
+                count+=1
         return myhtml
 
 def get_yield(email,time):
