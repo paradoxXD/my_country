@@ -25,7 +25,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-sm-6 text-left">  
-              <h2 class="card-title">Stock Transaction</h2>
+              <h3 class="card-title">Stock Transaction</h3>
             </div>
             <div class="col-sm-6">
               <div class="btn-group btn-group-toggle btn-group-md float-right" data-toggle="buttons">
@@ -66,7 +66,7 @@
                 </div>
               </div>
 
-              <button type="submit" class="btn btn-primary" id="transact">Transact</button>
+              <button type="submit" class="btn btn-fill btn-primary" id="transact">Transact</button>
 
               <br>
 
@@ -84,7 +84,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-sm-6 text-left">  
-              <h2 class="card-title">Stock Transaction Record</h2>
+              <h3 class="card-title">Stock Transaction Record</h3>
             </div>
 
 
@@ -127,7 +127,44 @@
         </div>
       </div>
     </div>
-
+    <div class="col-12">
+      <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Stock Recommendation</h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table tablesorter">
+                <thead class=" text-primary">
+                  <tr>
+                    <th>
+                      No.
+                    </th>
+                    <th>
+                      Ticker
+                    </th>
+                    <th>
+                      Stock Code
+                    </th>
+                    <th>
+                      Stock Yield
+                    </th>
+                    <th>
+                      Price
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id='Recomd_body'>
+                
+                </tbody>
+              </table>
+            </div>
+            <div class="col-sm-12">
+              <button type="button" class="btn btn-fill btn-primary" name='Fresh' id='Fresh'>Fresh</button>
+            </div>
+          </div>
+      </div>
+    </div>
   
   </div>
 
@@ -335,10 +372,32 @@
 
   });
 
+</script>
 
- 
+<script>
+var btt = document.getElementById("Fresh");
 
+  btt.addEventListener("click",function(){
+  let URL = "./recomd?time="+window.time;
+  let req = new XMLHttpRequest();
+  req.open('GET',URL,true);
+  req.onload = function() {
+  if (req.status >= 200 && req.status < 400) {
+    console.log(req.responseText);
+    document.getElementById('Recomd_body').innerHTML=req.responseText;
 
+  } else {
+    console.log("We connected to the server, but it returned an error.");
+  }
+  
+};
+  req.onerror = function() {
+  console.log("Connection error");
+};
+
+  req.send();
+
+  });
 
 
 

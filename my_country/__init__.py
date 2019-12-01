@@ -7,7 +7,7 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask import Flask, render_template, url_for, flash, redirect, session, g, request
 from forms import RegistrationForm, LoginForm
 from flask_bcrypt import Bcrypt
-from model import User, Get_password, already_exist, Time, get_stock_lounge_week, get_stock_lounge_month,get_stock_lounge_year,get_All_Stock,get_Recomd,get_buy,get_sell,money_enough,quantity_enough,transac_records, get_balance
+from model import User, Get_password, already_exist, Time, get_stock_lounge_week, get_stock_lounge_month,get_stock_lounge_year,get_All_Stock,get_Recomd,get_buy,get_sell,money_enough,quantity_enough,transac_records, get_balance, get_rank, get_portfolio_list, get_yield
 from datetime import datetime
 
 
@@ -214,6 +214,26 @@ def create_app(test_config=None):
     def balance():  
         email=session.get("user")
         result = get_balance(email)
+        return result
+
+    @app.route('/rank',methods=['GET','POST'])
+    def rank():  
+        email=session.get("user")
+        result = get_rank(email)
+        return result
+
+    @app.route('/port_list',methods=['GET','POST'])
+    def port_list():  
+        email=session.get("user")
+        time=request.args.get('time')
+        result = get_portfolio_list(email,time)
+        return result
+
+    @app.route('/yieldrate',methods=['GET','POST'])
+    def yieldrate():  
+        email=session.get("user")
+        time=request.args.get('time')
+        result = get_yield(email,time)
         return result
 
 

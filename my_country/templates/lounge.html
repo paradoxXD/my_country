@@ -22,7 +22,7 @@
     <div class="col-12">	
         <div class="card">
             <div class="card-body">
-                <h4 class="title">Search For Stock Name</h4>
+                <h3 class="card-title">Search For Ticker</h3>
                 <div class="row">
                     <div class="col-sm-12">
                         <form method="POST" autocomplete="off">
@@ -79,44 +79,6 @@
         </div>
       </div>
     </div>    
-    <div class="col-12">
-      <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">Stock Recommendation</h4>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table tablesorter">
-                <thead class=" text-primary">
-                  <tr>
-                    <th>
-                      No.
-                    </th>
-                    <th>
-                      Ticker
-                    </th>
-                    <th>
-                      Stock Code
-                    </th>
-                    <th>
-                      Stock Yield
-                    </th>
-                    <th>
-                      Price
-                    </th>
-                  </tr>
-                </thead>
-                <tbody id='Recomd_body'>
-                
-                </tbody>
-              </table>
-            </div>
-            <div class="col-sm-12">
-              <button type="button" class="btn btn-fill btn-primary" name='Fresh' id='Fresh'>Fresh</button>
-            </div>
-          </div>
-      </div>
-    </div>
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
@@ -448,34 +410,9 @@
 
     
     
-    var btt = document.getElementById("Fresh");
-
-        btt.addEventListener("click",function(){
-        let URL = "./recomd?time="+window.time;
-        let req = new XMLHttpRequest();
-        req.open('GET',URL,true);
-        req.onload = function() {
-        if (req.status >= 200 && req.status < 400) {
-          console.log(req.responseText);
-          document.getElementById('Recomd_body').innerHTML=req.responseText;
-
-        } else {
-          console.log("We connected to the server, but it returned an error.");
-        }
-        
-      };
-        req.onerror = function() {
-        console.log("Connection error");
-      };
     
-        req.send();
-
-        });
-
-
-      });
     
-
+});
   
 </script>
 

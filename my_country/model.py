@@ -324,5 +324,68 @@ def get_balance(email):
     else:
         return str(result[0][0])
 
+def get_rank(email):
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+    try:
+        with connection.cursor() as cursor:
 
+            sql = "select t.rank from (SELECT email,balance, CASE WHEN @prevRank = balance THEN @curRank WHEN @prevRank := balance THEN @curRank := @curRank + 1 END AS rank FROM users, (SELECT @curRank :=0, @prevRank := NULL) r ORDER BY balance desc) as t where email='{}';".format(email)
+            
+            cursor.execute(sql)
+            
+            result = cursor.fetchall()
+    finally:
+            connection.close()
+    
+    if result ==False:
+        return None
+    else:
+        return str(result[0][0])
+
+def get_portfolio_list(email,time):
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+    try:
+        with connection.cursor() as cursor:
+
+            sql = "select ticker, sum(volume), PRC, round(sum(volume)*PRC,4) from transaction_records natural join users natural join stockprice where email='{}' and date=if('{}'>'2018-12-31','2018-12-31','{}') group by ticker;".format(email,time,time)
+            
+            cursor.execute(sql)
+            
+            result = cursor.fetchall()
+    finally:
+            connection.close()
+    
+    if len(result)==0:
+        return None
+    else:
+        myhtml=''
+        for i in range(len(result)):
+            myhtml+='<tr><td>'+str(i+1)+'</td><td>'+result[i][0]+'</td><td>'+str(result[i][1])+'</td><td>'+str(result[i][2])+'</td><td>'+str(result[i][3])+'</td></tr>'
+        return myhtml
+
+def get_yield(email,time):
+    connection = pymysql.connect("112.124.46.178", "root", "rootroot", "my_country")
+    try:
+        with connection.cursor() as cursor:
+
+            sql = "select sum(volume)*PRC from transaction_records natural join users natural join stockprice where email='{}' and date=if('{}'>'2018-12-31','2018-12-31','{}') group by ticker;".format(email,time,time)
+            cursor.execute(sql)
+            result1 = cursor.fetchall()
+            sql = "select balance from users where email='{}';".format(email)
+            cursor.execute(sql)
+            result2 = cursor.fetchall()
+            
+    finally:
+            connection.close()
+    
+    if len(result1)==0:
+        return None
+    else:
+        rate=0
+        balance=float(result2[0][0])
+        for i in range(len(result1)):
+            rate+=float(result1[i][0])
+        rate=100*(rate+balance-1000000)/1000000
+        rate=round(rate,4)
+        return str(rate)+'%'
 

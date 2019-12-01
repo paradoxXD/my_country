@@ -12,15 +12,15 @@
         <div class="card-body">
           <div class="typography-line">
             <span style="font-weight:bold;">My Rank</span>
-            <h3>5</h3>
+            <h3 id='rank'>Null</h3>
           </div>
           <div class="typography-line">
               <span style="font-weight:bold;">My Balance</span>
-              <h3 id='balance'></h3>
+              <h3 id='balance'>Null</h3>
           </div>
           <div class="typography-line">
               <span style="font-weight:bold;">Yield Rate</span>
-              <h3>5.40%</h3>
+              <h3 id='yield'>Null</h3>
           </div>
         </div>
       </div>
@@ -39,13 +39,11 @@
                     No.
                   </th>
                   <th>
-                    Stock Name
+                    Ticker
+                  </th>
                   </th>
                   <th>
-                    Stock Code
-                  </th>
-                  <th>
-                    Shares
+                    Quantity
                   </th>
                   <th>
                     Unit Price
@@ -55,47 +53,7 @@
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    1
-                  </td>
-                  <td>
-                    ORCL
-                  </td>
-                  <td>
-                    10104
-                  </td>
-                  <td>
-                    300
-                  </td>
-                  <td>
-                    $100
-                  </td>
-                  <td>
-                    $3000
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    2
-                  </td>
-                  <td>
-                    MSFT
-                  </td>
-                  <td>
-                    10107
-                  </td>
-                  <td>
-                    400
-                  </td>
-                  <td>
-                    $50
-                  </td>
-                  <td>
-                    $20000
-                  </td>
-                </tr>
+              <tbody id='mylist'>
               </tbody>
             </table>
           </div>
@@ -114,7 +72,6 @@ let req = new XMLHttpRequest();
 req.open('GET',URL,true);
 req.onload = function() {
 if (req.status >= 200 && req.status < 400) {
-  console.log(req.responseText);
   document.getElementById('balance').innerText=req.responseText;
 
 } else {
@@ -130,9 +87,82 @@ req.send();
 
 }, 2000);
 
+</script>
 
+<script>
+var rank = setInterval(function(){
+let URL = "./rank";
+let req = new XMLHttpRequest();
+req.open('GET',URL,true);
+req.onload = function() {
+if (req.status >= 200 && req.status < 400) {
+  document.getElementById('rank').innerText=req.responseText;
+
+} else {
+  console.log("We connected to the server, but it returned an error.");
+}
+
+};
+req.onerror = function() {
+console.log("Connection error");
+};
+
+req.send();
+
+}, 2000);
 
 </script>
+
+<script>
+var mylist = setInterval(function(){
+let URL = "./port_list?time="+window.time;
+let req = new XMLHttpRequest();
+req.open('GET',URL,true);
+req.onload = function() {
+if (req.status >= 200 && req.status < 400) {
+  console.log(req.responseText)
+  document.getElementById('mylist').innerHTML=req.responseText;
+
+} else {
+  console.log("We connected to the server, but it returned an error.");
+}
+
+};
+req.onerror = function() {
+console.log("Connection error");
+};
+
+req.send();
+
+}, 2000);
+
+</script>
+
+<script>
+var myyield = setInterval(function(){
+let URL = "./yieldrate?time="+window.time;
+let req = new XMLHttpRequest();
+req.open('GET',URL,true);
+req.onload = function() {
+if (req.status >= 200 && req.status < 400) {
+  console.log(req.responseText)
+  document.getElementById('yield').innerText=req.responseText;
+
+} else {
+  console.log("We connected to the server, but it returned an error.");
+}
+
+};
+req.onerror = function() {
+console.log("Connection error");
+};
+
+req.send();
+
+}, 2000);
+
+</script>
+
 
 
 {% endblock script %}
