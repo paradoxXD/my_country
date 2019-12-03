@@ -86,6 +86,23 @@ test = {
             pointHoverBorderWidth: 15,
             pointRadius: 4,
             data: week_data,
+          },{
+            label: "Predicted Price",
+            fill: true,
+            backgroundColor: gradientStroke,
+            lineTension: 0,
+            borderColor: '#ff8a76',
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: '#ff8a76',
+            pointBorderColor: 'rgba(255,255,255,0)',
+            pointHoverBackgroundColor: '#ff8a76',
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+            data: [10,10,10,10,10,10,10],
           }]
         },
         options: gradientChartOptionsConfigurationWithTooltipPurple
@@ -94,19 +111,24 @@ test = {
 
 
 
-    this.update_data = function(new_data,sql_label){
+    this.update_data = function(new_data,sql_label,Predicted){
       week_data = new_data;
       var data = myChartData.config.data;
       data.datasets[0].data = week_data;
+      data.datasets[1].data = Predicted;
       data.labels = sql_label;
       myChartData.update();
     }
-
 
   
     this.update_point_size= function(size){
       var data = myChartData.config.data;
       data.datasets[0].pointRadius = size;
+    }
+
+    this.update_point_size_pre= function(size){
+      var data = myChartData.config.data;
+      data.datasets[1].pointRadius = size;
     }
 
 

@@ -292,11 +292,13 @@
     var btn = document.getElementById("select");
         btn.addEventListener("click",function(){
         var week = document.getElementById('3');
+        var month = document.getElementById('4');
+        var year = document.getElementById('5');
         if (week.getAttribute('class') =='btn btn-sm btn-primary btn-simple active'){
           var stock = document.getElementById("stock").value;
-          //alert(stock);
+      
           selected_stock = stock
-          var URL = "./engine?stock="+stock+'&time='+window.time;
+          let URL = "./engine?stock="+stock+'&time='+window.time;
           
           var req = new XMLHttpRequest();
           req.open('GET',URL,true);
@@ -306,8 +308,12 @@
             // var result = document.getElementById('lounge_body').innerHTML;
             // result = "<td>1</td>"
             let price = ourData.price;
+            let predict = ourData.prediction;
             price.forEach(reduce_to_cent);
-            obj.update_data(ourData.price,ourData.date);
+            predict.forEach(reduce_to_cent);
+            obj.update_point_size(4);
+            obj.update_point_size_pre(4);
+            obj.update_data(ourData.price,ourData.date,ourData.prediction);
           } else {
             console.log("We connected to the server, but it returned an error.");
           }
@@ -318,7 +324,68 @@
         };
       
           req.send();
-        }
+        }else if (month.getAttribute('class') =='btn btn-sm btn-primary btn-simple active'){
+            let URL = "./engine2?stock="+selected_stock+'&time='+window.time;
+            var stock = document.getElementById("stock").value;
+            selected_stock = stock
+            let req = new XMLHttpRequest();
+            req.open('GET',URL,true);
+            req.onload = function() {
+            if (req.status >= 200 && req.status < 400) {
+              var ourData = JSON.parse(req.responseText);
+              
+              let price = ourData.price;
+              let predict = ourData.prediction;
+              price.forEach(reduce_to_cent);
+              predict.forEach(reduce_to_cent);
+              console.log(price);
+              console.log(predict);
+              obj.update_point_size(4);
+              obj.update_point_size_pre(4);
+              obj.update_data(ourData.price,ourData.date,ourData.prediction);
+            } else {
+              console.log("We connected to the server, but it returned an error.");
+            }
+            
+          };
+            req.onerror = function() {
+            console.log("Connection error");
+          };
+        
+            req.send();
+      }else if (year.getAttribute('class') =='btn btn-sm btn-primary btn-simple active'){
+
+        
+    let URL = "./engine3?stock="+selected_stock+'&time='+window.time;
+    var stock = document.getElementById("stock").value;
+    selected_stock = stock;
+    let req = new XMLHttpRequest();
+    req.open('GET',URL,true);
+    req.onload = function() {
+    if (req.status >= 200 && req.status < 400) {
+      var ourData = JSON.parse(req.responseText);
+      let price = ourData.price;
+      let predict = ourData.prediction;
+      price.forEach(reduce_to_cent);
+      predict.forEach(reduce_to_cent);
+      console.log(price);
+      console.log(predict);
+      obj.update_point_size(1);
+      obj.update_point_size_pre(1);
+      obj.update_data(ourData.price,ourData.date,ourData.prediction);
+    } else {
+      console.log("We connected to the server, but it returned an error.");
+    }
+    
+  };
+    req.onerror = function() {
+    console.log("Connection error");
+  };
+
+    req.send();
+}else{
+
+}
 
 
         window.clearInterval(t1);  
@@ -342,10 +409,14 @@
             if (req.status >= 200 && req.status < 400) {
               var ourData = JSON.parse(req.responseText);
               let price = ourData.price;
+              let predict = ourData.prediction;
               price.forEach(reduce_to_cent);
+              predict.forEach(reduce_to_cent);
               console.log(price);
+              console.log(predict);
               obj.update_point_size(4);
-              obj.update_data(ourData.price,ourData.date);
+              obj.update_point_size_pre(4);
+              obj.update_data(ourData.price,ourData.date,ourData.prediction);
               
             } else {
               console.log("We connected to the server, but it returned an error.");
@@ -367,10 +438,16 @@
             req.onload = function() {
             if (req.status >= 200 && req.status < 400) {
               var ourData = JSON.parse(req.responseText);
-              obj.update_point_size(4);
-              let price = ourData.price
+              
+              let price = ourData.price;
+              let predict = ourData.prediction;
               price.forEach(reduce_to_cent);
-              obj.update_data(ourData.price,ourData.date)
+              predict.forEach(reduce_to_cent);
+              console.log(price);
+              console.log(predict);
+              obj.update_point_size(4);
+              obj.update_point_size_pre(4);
+              obj.update_data(ourData.price,ourData.date,ourData.prediction);
             } else {
               console.log("We connected to the server, but it returned an error.");
             }
@@ -392,9 +469,14 @@
             if (req.status >= 200 && req.status < 400) {
               var ourData = JSON.parse(req.responseText);
               let price = ourData.price;
+              let predict = ourData.prediction;
               price.forEach(reduce_to_cent);
+              predict.forEach(reduce_to_cent);
+              console.log(price);
+              console.log(predict);
               obj.update_point_size(1);
-              obj.update_data(ourData.price,ourData.date);
+              obj.update_point_size_pre(1);
+              obj.update_data(ourData.price,ourData.date,ourData.prediction);
             } else {
               console.log("We connected to the server, but it returned an error.");
             }

@@ -79,7 +79,7 @@ def get_stock_lounge_week(stock,time):
     try:
         with connection.cursor() as cursor:
 
-            sql = "select IFNULL(TICKER,0),IFNULL(PRC, 0), IFNULL(date, 0) from stockprice where date between DATE_SUB('{}', INTERVAL 8 DAY)  and  '{}' and TICKER = '{}' ;".format(time,time,stock)
+            sql = "select IFNULL(TICKER,0),IFNULL(PRC, 0),IFNULL(prediction, 0),IFNULL(date, 0) from stockprice where date between DATE_SUB('{}', INTERVAL 8 DAY)  and  '{}' and TICKER = '{}' ;".format(time,time,stock)
             cursor.execute(sql)
             result = cursor.fetchall()
     finally:
@@ -89,18 +89,21 @@ def get_stock_lounge_week(stock,time):
     else:
         #print(result)
         price = []
+        prediction = []
         date = []
         for one in result:
 
             price.append(one[1])
             #mod_date = time.strptime(one[2], "%Y-%m-%d")
-            mod_day = one[2].split( )[0]
+            prediction.append(one[2])
+            mod_day = one[3].split( )[0]
             date.append(mod_day)
 
         #print(price)
         #print(date)
         dic = {
         "price": price,
+        "prediction": prediction,
         "date": date
     }
     
@@ -114,7 +117,7 @@ def get_stock_lounge_month(stock,time):
     try:
         with connection.cursor() as cursor:
 
-            sql = "select IFNULL(TICKER,0),IFNULL(PRC, 0), IFNULL(date, 0) from stockprice where date between DATE_SUB('{}', INTERVAL 31 DAY)  and  '{}' and TICKER = '{}' ;".format(time,time,stock)
+            sql = "select IFNULL(TICKER,0),IFNULL(PRC, 0),IFNULL(prediction, 0), IFNULL(date, 0) from stockprice where date between DATE_SUB('{}', INTERVAL 31 DAY)  and  '{}' and TICKER = '{}' ;".format(time,time,stock)
             cursor.execute(sql)
             result = cursor.fetchall()
     finally:
@@ -125,17 +128,20 @@ def get_stock_lounge_month(stock,time):
         #print(result)
         price = []
         date = []
+        prediction = []
         for one in result:
 
             price.append(one[1])
             #mod_date = time.strptime(one[2], "%Y-%m-%d")
-            mod_day = one[2].split( )[0]
+            prediction.append(one[2])
+            mod_day = one[3].split( )[0]
             date.append(mod_day)
 
         #print(price)
         #print(date)
         dic = {
         "price": price,
+        "prediction": prediction,
         "date": date
     }
     
@@ -148,7 +154,7 @@ def get_stock_lounge_year(stock,time):
     try:
         with connection.cursor() as cursor:
 
-            sql = "select IFNULL(TICKER,0),IFNULL(PRC, 0), IFNULL(date, 0) from stockprice where date between DATE_SUB('{}', INTERVAL 365 DAY)  and  '{}' and TICKER = '{}' ;".format(time,time,stock)
+            sql = "select IFNULL(TICKER,0),IFNULL(PRC, 0),IFNULL(prediction, 0), IFNULL(date, 0) from stockprice where date between DATE_SUB('{}', INTERVAL 365 DAY)  and  '{}' and TICKER = '{}' ;".format(time,time,stock)
             cursor.execute(sql)
             result = cursor.fetchall()
     finally:
@@ -159,17 +165,20 @@ def get_stock_lounge_year(stock,time):
         #print(result)
         price = []
         date = []
+        prediction = []
         for one in result:
 
             price.append(one[1])
             #mod_date = time.strptime(one[2], "%Y-%m-%d")
-            mod_day = one[2].split( )[0]
+            prediction.append(one[2])
+            mod_day = one[3].split( )[0]
             date.append(mod_day)
 
         #print(price)
         #print(date)
         dic = {
         "price": price,
+        "prediction": prediction,
         "date": date
     }
     
